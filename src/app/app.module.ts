@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { CoreModule } from './core/core.module';
 import { AuthModule } from './modules/auth/auth.module';
 
 @NgModule({
@@ -11,8 +12,9 @@ import { AuthModule } from './modules/auth/auth.module';
   ],
   imports: [
     BrowserModule,
-    AuthModule,
-    AppRoutingModule
+    CoreModule,
+    AuthModule,    
+    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
