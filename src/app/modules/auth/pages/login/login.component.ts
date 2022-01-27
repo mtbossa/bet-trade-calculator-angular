@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { catchError, take } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth.service';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -11,6 +11,7 @@ import { environment } from 'src/environments/environment';
 })
 export class LoginComponent implements OnInit {
   form!: FormGroup;
+  errors = {};
 
   constructor(
     private formBuilder: FormBuilder,
@@ -26,6 +27,16 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    this.authService.logIn(this.form.value).subscribe(() => console.log);
+    this.authService
+      .logIn(this.form.value)
+      .pipe(take(1))
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+        },
+        error: (err) => {
+          this.errors = err.error.errors;
+        },
+      });
   }
 }

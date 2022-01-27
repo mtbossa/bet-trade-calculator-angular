@@ -9,18 +9,15 @@ import { environment } from 'src/environments/environment';
 export class AuthService {
   constructor(private http: HttpClient) {}
 
+  getCsrfToken() {
+    return this.http.get(`${environment.API_URL}/sanctum/csrf-cookie`);
+  }
+
   logIn(credentials: { email: string; password: string }) {
-    return this.http
-      .get(`${environment.API_URL}/sanctum/csrf-cookie`, {
-        headers: new HttpHeaders('Content-Type: application/json'),
-        withCredentials: true,
-      })
-      .pipe(
-        switchMap(() =>
-          this.http.post(`${environment.API_URL}/login`, credentials, {
-            withCredentials: true,
-          })
-        )
-      );
+    return this.getCsrfToken().pipe(
+      switchMap(() =>
+        this.http.post(`${environment.API_URL}/login`, credentials)
+      )
+    );
   }
 }
