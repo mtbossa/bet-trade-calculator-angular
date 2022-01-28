@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { catchError, take } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth.service';
 
@@ -16,13 +17,14 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private http: HttpClient,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      email: [null],
-      password: [null],
+      email: ['teste@teste.com'],
+      password: ['password'],
     });
   }
 
@@ -32,7 +34,8 @@ export class LoginComponent implements OnInit {
       .pipe(take(1))
       .subscribe({
         next: (res) => {
-          console.log(res);
+          this.authService.saveUser();
+          this.router.navigate(['dashboard']);
         },
         error: (err) => {
           this.errors = err.error.errors;

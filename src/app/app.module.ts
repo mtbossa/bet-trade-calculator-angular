@@ -10,6 +10,7 @@ import { WithCredentialsInterceptor } from './core/interceptors/with-credentials
 import { XXsrfInterceptor } from './core/interceptors/x-csrf.interceptor';
 import { AuthRoutingModule } from './modules/auth/auth-routing.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { DashboardModule } from './modules/dashboard/dashboard.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,6 +19,7 @@ import { AuthModule } from './modules/auth/auth.module';
     CookieModule.forRoot(),
     CoreModule,
     AuthModule,
+    DashboardModule,
     AppRoutingModule,
   ],
   providers: [

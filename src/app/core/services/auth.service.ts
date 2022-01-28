@@ -20,4 +20,31 @@ export class AuthService {
       )
     );
   }
+
+  getCurrentUser() {
+    return this.http.get(`${environment.API_URL}/api/user`);
+  }
+
+  saveUser() {
+    this.getCurrentUser()
+      .pipe(take(1))
+      .subscribe({
+        next: (res) => {
+          console.log('saveUser: ', res);
+          this.storeUserLocalStorage(res);
+        },
+      });
+  }
+
+  storeUserLocalStorage(user: {}) {
+    localStorage.setItem('loggedUser', JSON.stringify(user));
+  }
+
+  removeUserLocalStorage() {
+    localStorage.removeItem('loggedUser');
+  }
+
+  logOut() {
+    return this.http.post(`${environment.API_URL}/logout`, {});
+  }
 }

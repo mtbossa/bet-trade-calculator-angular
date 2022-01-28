@@ -4,17 +4,31 @@ import {
   HttpHandler,
   HttpEvent,
   HttpInterceptor,
+  HttpErrorResponse,
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { catchError, Observable, of, throwError } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { CookieService } from 'ngx-cookie';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class XXsrfInterceptor implements HttpInterceptor {
   private headerName = 'X-XSRF-TOKEN';
   constructor(
     private cookieService: CookieService,
+    private router: Router,
+    private authService: AuthService
   ) {}
+
+  private handleAuthError(err: HttpErrorResponse): Observable<any> {
+    if (err.status === 401 || err.status === 403) {
+      this.authService.removeUserLocalStorage();
+      this.router.navigateByUrl(`/login`);
+      // if you've caught / handled the error, you don't want to rethrow it unless you also want downstream consumers to have to handle it as well.
+      return of(err.message); // or EMPTY may be appropriate here
+    }
+    return throwError(() => new Error(err.message));
+  }
 
   intercept(
     request: HttpRequest<unknown>,
@@ -27,6 +41,8 @@ export class XXsrfInterceptor implements HttpInterceptor {
         headers: request.headers.set(this.headerName, token),
       });
     }
-    return next.handle(request);
+    return next
+      .handle(request)
+      .pipe(catchError((x) => this.handleAuthError(x)));
   }
 }
