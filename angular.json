@@ -103,9 +103,21 @@
             ],
             "scripts": []
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
   },
-  "defaultProject": "bet-trade-calculator-angular"
+  "defaultProject": "bet-trade-calculator-angular",
+  "cli": {
+    "defaultCollection": "@angular-eslint/schematics"
+  }
 }
