@@ -7,7 +7,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
-import { AuthModule } from './modules/auth/auth.module';
 import { DashboardModule } from './modules/dashboard/dashboard.module';
 
 @NgModule({
@@ -16,7 +15,6 @@ import { DashboardModule } from './modules/dashboard/dashboard.module';
     BrowserModule,
     CookieModule.forRoot(),
     CoreModule,
-    AuthModule,
     DashboardModule,
     AppRoutingModule,
   ],
