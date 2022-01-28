@@ -12,7 +12,7 @@ import { CookieService } from 'ngx-cookie';
 import { Router } from '@angular/router';
 
 @Injectable()
-export class XXsrfInterceptor implements HttpInterceptor {
+export class AuthInterceptor implements HttpInterceptor {
   private headerName = 'X-XSRF-TOKEN';
   constructor(
     private cookieService: CookieService,
@@ -42,7 +42,7 @@ export class XXsrfInterceptor implements HttpInterceptor {
       });
     }
     return next
-      .handle(request)
+      .handle(request.clone({ withCredentials: true }))
       .pipe(catchError((x) => this.handleAuthError(x)));
   }
 }
