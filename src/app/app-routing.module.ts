@@ -20,6 +20,10 @@ const ROUTES: Routes = [
         path: 'dashboard',
         component: DashboardComponent, // {3}
       },
+      {
+        path: 'logout',
+        component: LogoutComponent, // {5}
+      },
     ],
   },
   {
