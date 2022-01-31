@@ -6,10 +6,10 @@ import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss'],
+  templateUrl: './dashboard-page.component.html',
+  styleUrls: ['./dashboard-page.component.scss'],
 })
-export class DashboardComponent implements OnInit {
+export class DashboardPageComponent implements OnInit {
   constructor(private authService: AuthService, private http: HttpClient) {}
 
   ngOnInit(): void {

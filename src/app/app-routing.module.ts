@@ -7,7 +7,7 @@ import { AuthGuard } from './core/guards/auth.guard';
 import { GuestGuard } from './core/guards/guest.guard';
 import { AuthLayoutComponent } from './core/layouts/auth-layout/auth-layout.component';
 import { MainLayoutComponent } from './core/layouts/main-layout/main-layout.component';
-import { DashboardComponent } from './modules/dashboard/pages/dashboard/dashboard.component';
+import { DashboardPageComponent } from './modules/dashboard/pages/dashboard/dashboard-page.component';
 import { PageNotFoundComponent } from './shared/components/page-not-found/page-not-found.component';
 
 const ROUTES: Routes = [
@@ -19,7 +19,7 @@ const ROUTES: Routes = [
       { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
       {
         path: 'dashboard',
-        component: DashboardComponent, // {3}
+        component: DashboardPageComponent, // {3}
       },
       {
         path: 'logout',
