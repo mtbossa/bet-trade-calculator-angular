@@ -9,7 +9,7 @@ import { CoreModule } from './core/core.module';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { AuthLayoutComponent } from './core/layouts/auth-layout/auth-layout.component';
 import { MainLayoutComponent } from './core/layouts/main-layout/main-layout.component';
-import { MainModule } from './modules/main.module';
+import { MainAppModule } from './modules/main-app.module';
 import { PageNotFoundComponent } from './shared/components/page-not-found/page-not-found.component';
 
 @NgModule({
@@ -23,7 +23,7 @@ import { PageNotFoundComponent } from './shared/components/page-not-found/page-n
     BrowserModule,
     CookieModule.forRoot(),
     CoreModule,
-    MainModule,
+    MainAppModule,
     AppRoutingModule,
   ],
   providers: [
