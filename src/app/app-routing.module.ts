@@ -4,6 +4,7 @@ import { LoginComponent } from './core/auth/pages/login/login.component';
 import { LogoutComponent } from './core/auth/pages/logout/logout.component';
 import { RegisterComponent } from './core/auth/pages/register/register.component';
 import { AuthGuard } from './core/guards/auth.guard';
+import { GuestGuard } from './core/guards/guest.guard';
 import { AuthLayoutComponent } from './core/layouts/auth-layout/auth-layout.component';
 import { MainLayoutComponent } from './core/layouts/main-layout/main-layout.component';
 import { DashboardComponent } from './modules/dashboard/pages/dashboard/dashboard.component';
@@ -29,6 +30,7 @@ const ROUTES: Routes = [
   {
     path: '',
     component: AuthLayoutComponent, // {4}
+    canActivate: [GuestGuard],
     children: [
       {
         path: 'login',
@@ -37,10 +39,6 @@ const ROUTES: Routes = [
       {
         path: 'register',
         component: RegisterComponent, // {5}
-      },
-      {
-        path: 'logout',
-        component: LogoutComponent, // {5}
       },
     ],
   },

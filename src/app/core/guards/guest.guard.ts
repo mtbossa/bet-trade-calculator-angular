@@ -12,9 +12,8 @@ import { AuthService } from '../services/auth.service';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthGuard implements CanActivate {
+export class GuestGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {}
-
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
@@ -25,14 +24,14 @@ export class AuthGuard implements CanActivate {
     | UrlTree {
     return this.authService.user$.pipe(
       take(1),
-      map((user) => {        
+      map((user) => {
         const isAuth = !!user;
 
-        if (isAuth) {
+        if (!isAuth) {
           return true;
-        } 
-        
-        return this.router.createUrlTree(['/login']);
+        }
+
+        return this.router.createUrlTree(['/dashboard']);
       })
     );
   }
