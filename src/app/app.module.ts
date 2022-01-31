@@ -7,10 +7,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
+import { AuthLayoutComponent } from './core/layouts/auth-layout/auth-layout.component';
+import { MainLayoutComponent } from './core/layouts/main-layout/main-layout.component';
 import { DashboardModule } from './modules/dashboard/dashboard.module';
+import { PageNotFoundComponent } from './shared/components/page-not-found/page-not-found.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, MainLayoutComponent, AuthLayoutComponent, PageNotFoundComponent],
   imports: [
     BrowserModule,
     CookieModule.forRoot(),

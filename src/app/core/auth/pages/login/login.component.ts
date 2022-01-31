@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { catchError, take } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { User } from 'src/app/shared/models/user.model';
 
 @Component({
   selector: 'app-login',
@@ -16,9 +17,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private http: HttpClient,
-    private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -29,17 +29,15 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    this.authService
-      .logIn(this.form.value)
-      .pipe(take(1))
-      .subscribe({
-        next: (res) => {
-          this.authService.saveUser();
-          this.router.navigate(['dashboard']);
-        },
-        error: (err) => {
-          this.errors = err.error.errors;
-        },
-      });
+    this.authService.logIn(this.form.value).subscribe({
+      next: () => {
+        this.authService
+          .storeUser()
+          .subscribe(() => this.router.navigate(['/dashboard']));
+      },
+      error: (err) => {
+        this.errors = err.error.errors;
+      },
+    });
   }
 }
