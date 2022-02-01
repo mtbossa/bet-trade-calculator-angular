@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -9,7 +10,6 @@ import { AuthLayoutComponent } from './shared/layouts/auth-layout/auth-layout.co
 import { MainLayoutComponent } from './shared/layouts/main-layout/main-layout.component';
 import { PageNotFoundComponent } from './shared/pages/page-not-found/page-not-found.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -17,7 +17,13 @@ import { PageNotFoundComponent } from './shared/pages/page-not-found/page-not-fo
     AuthLayoutComponent,
     PageNotFoundComponent,
   ],
-  imports: [BrowserModule, CoreModule, MainAppModule, AppRoutingModule],
+  imports: [
+    BrowserModule,
+    CoreModule,
+    MainAppModule,
+    AppRoutingModule,
+    FlexLayoutModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
