@@ -7,6 +7,7 @@ import { RegisterPageComponent } from './core/auth/pages/register-page/register-
 import { AuthGuard } from './core/guards/auth.guard';
 import { GuestGuard } from './core/guards/guest.guard';
 import { DashboardPageComponent } from './modules/dashboard/pages/dashboard-page/dashboard-page.component';
+import { DashboardTestPageComponent } from './modules/dashboard/pages/dashboard-test-page/dashboard-test-page.component';
 import { AuthLayoutComponent } from './shared/layouts/auth-layout/auth-layout.component';
 import { MainLayoutComponent } from './shared/layouts/main-layout/main-layout.component';
 import { PageNotFoundComponent } from './shared/pages/page-not-found/page-not-found.component';
@@ -20,7 +21,7 @@ const ROUTES: Routes = [
       { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
       {
         path: 'dashboard',
-        component: DashboardPageComponent, // {3}
+        component: DashboardTestPageComponent, // {3}
       },
       {
         path: 'logout',
