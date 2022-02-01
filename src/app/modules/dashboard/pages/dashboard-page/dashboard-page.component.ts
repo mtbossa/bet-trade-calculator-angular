@@ -5,7 +5,7 @@ import { User } from 'src/app/shared/models/user.model';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-dashboard',
+  selector: 'app-dashboard-page',
   templateUrl: './dashboard-page.component.html',
   styleUrls: ['./dashboard-page.component.scss'],
 })
