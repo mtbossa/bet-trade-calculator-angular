@@ -5,8 +5,8 @@ import { LogoutComponent } from './core/auth/pages/logout/logout.component';
 import { RegisterComponent } from './core/auth/pages/register/register.component';
 import { AuthGuard } from './core/guards/auth.guard';
 import { GuestGuard } from './core/guards/guest.guard';
-import { AuthLayoutComponent } from './core/layouts/auth-layout/auth-layout.component';
-import { MainLayoutComponent } from './core/layouts/main-layout/main-layout.component';
+import { AuthLayoutComponent } from './shared/layouts/auth-layout/auth-layout.component';
+import { MainLayoutComponent } from './shared/layouts/main-layout/main-layout.component';
 import { DashboardPageComponent } from './modules/dashboard/pages/dashboard/dashboard-page.component';
 import { PageNotFoundComponent } from './shared/pages/page-not-found/page-not-found.component';
 
