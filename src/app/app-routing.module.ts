@@ -8,7 +8,7 @@ import { GuestGuard } from './core/guards/guest.guard';
 import { AuthLayoutComponent } from './core/layouts/auth-layout/auth-layout.component';
 import { MainLayoutComponent } from './core/layouts/main-layout/main-layout.component';
 import { DashboardPageComponent } from './modules/dashboard/pages/dashboard/dashboard-page.component';
-import { PageNotFoundComponent } from './shared/components/page-not-found/page-not-found.component';
+import { PageNotFoundComponent } from './shared/pages/page-not-found/page-not-found.component';
 
 const ROUTES: Routes = [
   {

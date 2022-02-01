@@ -11,7 +11,7 @@ import { AuthLayoutComponent } from './core/layouts/auth-layout/auth-layout.comp
 import { MainLayoutComponent } from './core/layouts/main-layout/main-layout.component';
 import { AuthService } from './core/services/auth.service';
 import { MainAppModule } from './modules/main-app.module';
-import { PageNotFoundComponent } from './shared/components/page-not-found/page-not-found.component';
+import { PageNotFoundComponent } from './shared/pages/page-not-found/page-not-found.component';
 
 function resourceProviderFactory(authService: AuthService) {
   return () => {
