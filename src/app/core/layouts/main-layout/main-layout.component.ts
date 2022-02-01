@@ -6,10 +6,6 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './main-layout.component.html',
   styleUrls: ['./main-layout.component.scss'],
 })
-export class MainLayoutComponent implements OnInit {
+export class MainLayoutComponent {
   constructor(private authService: AuthService) {}
-
-  ngOnInit(): void {
-    this.authService.autoLogIn();
-  }
 }

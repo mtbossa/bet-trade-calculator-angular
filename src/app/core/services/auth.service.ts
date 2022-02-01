@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie';
-import { BehaviorSubject, switchMap, take, tap } from 'rxjs';
+import { BehaviorSubject, map, switchMap, take, tap } from 'rxjs';
 import { User } from 'src/app/shared/models/user.model';
 import { environment } from 'src/environments/environment';
 
@@ -19,13 +19,9 @@ export class AuthService {
   ) {}
 
   autoLogIn() {
+    console.log('autologin');
     // There's no need to handle unauthorized error, auth interceptor already does it. However, could handle other kind of errors, for example 500
-    this._fetchCurrentUser().subscribe({
-      next: (user) => {
-        this.user$.next(user);
-        this.router.navigate(['/dashboard']);
-      },
-    });
+    return this._fetchCurrentUser();
   }
 
   private _getCsrfToken() {
@@ -35,7 +31,10 @@ export class AuthService {
   }
 
   private _fetchCurrentUser() {
-    return this.http.get<User>(`${environment.API_URL}/api/user`).pipe(take(1));
+    return this.http.get<User>(`${environment.API_URL}/api/user`).pipe(
+      take(1),
+      tap((res) => console.log('getch res: ', res))
+    );
   }
 
   logIn(credentials: { email: string; password: string }) {
@@ -49,6 +48,7 @@ export class AuthService {
   }
 
   logOut() {
+    console.log('loggin user out');
     this.http
       .post(`${environment.API_URL}/logout`, {})
       .pipe(take(1))

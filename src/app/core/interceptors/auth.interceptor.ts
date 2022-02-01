@@ -45,8 +45,7 @@ export class AuthInterceptor implements HttpInterceptor {
       });
     }
 
-    return next
-      .handle(request.clone({ withCredentials: true }))
-      .pipe(catchError((x) => this.handleAuthError(x)));
+    return next.handle(request.clone({ withCredentials: true }));
+    // .pipe(catchError((x) => this.handleAuthError(x))); // Was being  used to handle unauthorized, if user deleted cookies.
   }
 }
