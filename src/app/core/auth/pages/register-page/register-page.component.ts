@@ -3,11 +3,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss'],
+  selector: 'app-register-page',
+  templateUrl: './register-page.component.html',
+  styleUrls: ['./register-page.component.scss'],
 })
-export class RegisterComponent implements OnInit {
+export class RegisterPageComponent implements OnInit {
   form!: FormGroup;
 
   constructor(private formBuilder: FormBuilder, private http: HttpClient) {}
