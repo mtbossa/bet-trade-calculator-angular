@@ -15,6 +15,6 @@ export class DashboardPageComponent implements OnInit {
   ngOnInit(): void {
     this.http
       .get<User>(`${environment.API_URL}/api/user`)
-      .subscribe((res) => console.log('dashboard teste: ', res));
+      .subscribe((res) => console.log('dashboard teste for authentication: ', res));
   }
 }
