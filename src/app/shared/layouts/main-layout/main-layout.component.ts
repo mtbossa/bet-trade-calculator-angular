@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
@@ -7,5 +7,5 @@ import { AuthService } from '../../../core/services/auth.service';
   styleUrls: ['./main-layout.component.scss'],
 })
 export class MainLayoutComponent {
-  constructor(private authService: AuthService) {}
+  constructor() {}
 }

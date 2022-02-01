@@ -1,17 +1,12 @@
-import { Injectable } from '@angular/core';
 import {
-  HttpRequest,
-  HttpHandler,
-  HttpEvent,
-  HttpInterceptor,
-  HttpErrorResponse,
-  HttpStatusCode,
+  HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpStatusCode
 } from '@angular/common/http';
-import { catchError, Observable, of, throwError } from 'rxjs';
-import { AuthService } from '../services/auth.service';
-import { CookieService } from 'ngx-cookie';
+import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { User } from 'src/app/shared/models/user.model';
+import { CookieService } from 'ngx-cookie';
+import { Observable, of, throwError } from 'rxjs';
+
+import { AuthService } from '../services/auth.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {

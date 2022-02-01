@@ -4,9 +4,10 @@ import {
   CanActivate,
   Router,
   RouterStateSnapshot,
-  UrlTree,
+  UrlTree
 } from '@angular/router';
 import { map, Observable, take } from 'rxjs';
+
 import { AuthService } from '../services/auth.service';
 
 @Injectable({

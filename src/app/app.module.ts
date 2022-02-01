@@ -9,6 +9,7 @@ import { AuthLayoutComponent } from './shared/layouts/auth-layout/auth-layout.co
 import { MainLayoutComponent } from './shared/layouts/main-layout/main-layout.component';
 import { PageNotFoundComponent } from './shared/pages/page-not-found/page-not-found.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
