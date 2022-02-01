@@ -8,7 +8,7 @@ import { MainAppModule } from './modules/main-app.module';
 import { AuthLayoutComponent } from './shared/layouts/auth-layout/auth-layout.component';
 import { MainLayoutComponent } from './shared/layouts/main-layout/main-layout.component';
 import { PageNotFoundComponent } from './shared/pages/page-not-found/page-not-found.component';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -17,7 +17,13 @@ import { PageNotFoundComponent } from './shared/pages/page-not-found/page-not-fo
     AuthLayoutComponent,
     PageNotFoundComponent,
   ],
-  imports: [BrowserModule, CoreModule, MainAppModule, AppRoutingModule],
+  imports: [
+    BrowserModule,
+    CoreModule,
+    MainAppModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

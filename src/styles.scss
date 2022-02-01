@@ -6,3 +6,12 @@ body {
   background-color: $black;
   color: $white;
 }
+
+html,
+body {
+  height: 100vh;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
