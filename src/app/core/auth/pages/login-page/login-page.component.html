@@ -1,12 +1,12 @@
 <div class="container">
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div>
-      <label for="email">Email</label>
+      <label for="email" class="sr-only">Email</label>
       <input type="email" formControlName="email" />
       <p *ngIf="errors.errors?.email">{{ getError("email") }}</p>
     </div>
     <div>
-      <label for="password">Password</label>
+      <label for="password" class="sr-only">Password</label>
       <input type="password" formControlName="password" />
       <p *ngIf="errors.errors?.password">{{ getError("password") }}</p>
     </div>
