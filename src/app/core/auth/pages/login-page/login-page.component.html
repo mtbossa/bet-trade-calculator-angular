@@ -1,14 +1,15 @@
-<h1>Login</h1>
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
-  <div>
-    <label for="email">Email</label>
-    <input type="email" formControlName="email" />
-  </div>
-  <div>
-    <label for="password">Password</label>
-    <input type="password" formControlName="password" />
-  </div>
-  <button>Log in</button>
-</form>
-<a routerLink="/register">Register</a>
-<a routerLink="/logout">lougout</a>
+<div class="container">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="email">Email</label>
+      <input type="email" formControlName="email" />
+    </div>
+    <div>
+      <label for="password">Password</label>
+      <input type="password" formControlName="password" />
+    </div>
+    <button>Log in</button>
+  </form>
+  <a routerLink="/register">Register</a>
+  <a routerLink="/logout">lougout</a>
+</div>
