@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { RouterModule } from '@angular/router';
-import { AngularMaterialModule } from 'src/app/shared/modules/angular-material.module';
+import { SharedModule } from 'src/app/shared/shared.module';
 import { AuthRoutingModule } from './auth-routing.module';
 
 import { LoginPageComponent } from './pages/login-page/login-page.component';
@@ -19,7 +19,7 @@ import { RegisterPageComponent } from './pages/register-page/register-page.compo
     HttpClientModule,
     RouterModule,
     AuthRoutingModule,
-    AngularMaterialModule,
+    SharedModule,
   ],
   exports: [],
 })
