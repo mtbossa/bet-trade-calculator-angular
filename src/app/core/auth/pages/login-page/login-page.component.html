@@ -3,10 +3,12 @@
     <div>
       <label for="email">Email</label>
       <input type="email" formControlName="email" />
+      <p *ngIf="errors.errors?.email">{{ getError("email") }}</p>
     </div>
     <div>
       <label for="password">Password</label>
       <input type="password" formControlName="password" />
+      <p *ngIf="errors.errors?.password">{{ getError("password") }}</p>
     </div>
     <button>Log in</button>
   </form>
