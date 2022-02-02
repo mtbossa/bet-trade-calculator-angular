@@ -4,4 +4,31 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 2rem;
+}
+
+.card {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.login-form__fields {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-form__button-submit {
+  // margin-top: 1.5rem;
 }
