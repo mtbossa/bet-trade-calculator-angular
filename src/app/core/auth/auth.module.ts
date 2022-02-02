@@ -17,9 +17,8 @@ import { RegisterPageComponent } from './pages/register-page/register-page.compo
     CommonModule,
     ReactiveFormsModule,
     HttpClientModule,
-    RouterModule,
-    AuthRoutingModule,
     SharedModule,
+    AuthRoutingModule,
   ],
   exports: [],
 })

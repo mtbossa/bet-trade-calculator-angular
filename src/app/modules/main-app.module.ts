@@ -5,10 +5,11 @@ import { AuthLayoutComponent } from '../shared/layouts/auth-layout/auth-layout.c
 import { MainLayoutComponent } from '../shared/layouts/main-layout/main-layout.component';
 
 import { DashboardModule } from './dashboard/dashboard.module';
+import { MainAppRoutingModule } from './main-app-routing.module';
 
 @NgModule({
   declarations: [MainLayoutComponent, AuthLayoutComponent],
-  imports: [CommonModule, DashboardModule, RouterModule],
+  imports: [CommonModule, MainAppRoutingModule],
   exports: [],
 })
 export class MainAppModule {}
