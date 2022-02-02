@@ -1,3 +1,6 @@
+@import "src/assets/scss/colors.scss";
+@import "src/assets/scss/variables.scss";
+
 .container {
   width: fit-content;
   margin: 0 auto;
@@ -8,4 +11,47 @@
   justify-content: center;
 }
 
+.card {
+  background-color: $light-gray;
+  padding: 2rem;
+  box-shadow: 0 0 15px 5px $ebony-clay;
+  border-radius: $border-radius-sm;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+}
 
+h1 {
+  color: $ebony-clay;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+input {
+  background-color: $ebony-clay;
+  appearance: none;
+  padding: 1rem;
+  border-radius: $border-radius-sm;
+  color: $white;
+}
+
+button {
+  background-color: $green;
+  border: none;
+  border-radius: $border-radius-sm;
+  padding: 1rem;
+  color: $white;
+  box-shadow: 0 0 10px 0 $ebony-clay;
+}
+
+.login-page__buttons-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
