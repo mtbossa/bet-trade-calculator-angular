@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -11,7 +12,11 @@ import { AuthService } from 'src/app/core/services/auth.service';
 })
 export class LoginPageComponent implements OnInit {
   form!: FormGroup;
-  errors = {};
+  errors: {
+    message?: string;
+    email?: Array<string>;
+    password?: Array<string>;
+  } = {};
 
   constructor(
     private formBuilder: FormBuilder,
@@ -21,7 +26,7 @@ export class LoginPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      email: ['teste@teste.com'],
+      email: [],
       password: ['password'],
     });
   }
@@ -33,8 +38,9 @@ export class LoginPageComponent implements OnInit {
           .storeUser()
           .subscribe(() => this.router.navigate(['/dashboard']));
       },
-      error: (err) => {
-        this.errors = err.error.errors;
+      error: (errorResponse: HttpErrorResponse) => {
+        let errorObject = errorResponse.error;
+        this.errors = { ...errorObject };
       },
     });
   }
