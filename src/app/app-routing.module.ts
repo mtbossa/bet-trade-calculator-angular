@@ -45,7 +45,10 @@ const ROUTES: Routes = [
       },
       {
         path: 'register',
-        component: RegisterPageComponent, // {5}
+        loadChildren: () =>
+          import('./core/auth/register/register.module').then(
+            (m) => m.RegisterModule
+          ),
       },
     ],
   },
