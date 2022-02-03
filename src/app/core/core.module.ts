@@ -1,9 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 
 import { CookieModule } from 'ngx-cookie';
-import { AuthModule } from './auth/auth.module';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { AuthService } from './services/auth.service';
 
@@ -27,7 +26,7 @@ function resourceProviderFactory(authService: AuthService) {
 
 @NgModule({
   declarations: [],
-  imports: [CommonModule, AuthModule, CookieModule.forRoot()],
+  imports: [CommonModule, HttpClientModule, CookieModule.forRoot()],
   exports: [],
   providers: [
     {
