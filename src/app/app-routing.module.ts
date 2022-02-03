@@ -12,12 +12,12 @@ import { MainLayoutComponent } from './core/layouts/main-layout/main-layout.comp
 import { PageNotFoundComponent } from './shared/pages/page-not-found/page-not-found.component';
 
 const ROUTES: Routes = [
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   {
     path: '', // {1}
     component: MainLayoutComponent,
     canActivate: [AuthGuard], // {2}
     children: [
-      { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
       {
         path: 'dashboard',
         component: DashboardPageComponent, // {3}
