@@ -1,8 +1,19 @@
-<nav>
-  <ul>
-    <li>teste</li>
-    <li>{{ "oi" }}</li>
-  </ul>
-  <a routerLink="/logout">Logout</a>
-</nav>
-<router-outlet></router-outlet>
+<main>
+  <mat-drawer-container class="example-container" autosize>
+    <mat-drawer #drawer class="example-sidenav" mode="side">
+      <p>Auto-resizing sidenav</p>
+      <p *ngIf="showFiller">Lorem, ipsum dolor sit amet consectetur.</p>
+      <button (click)="showFiller = !showFiller" mat-raised-button>
+        Toggle extra text
+      </button>
+    </mat-drawer>
+  
+    <div class="example-sidenav-content">
+      <button type="button" mat-button (click)="drawer.toggle()">
+        Toggle sidenav
+      </button>
+    </div>
+  
+    <router-outlet></router-outlet>
+  </mat-drawer-container>
+</main>

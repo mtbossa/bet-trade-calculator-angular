@@ -7,5 +7,7 @@ import { AuthService } from '../../../core/services/auth.service';
   styleUrls: ['./main-layout.component.scss'],
 })
 export class MainLayoutComponent {
+  showFiller = false;
+  
   constructor() {}
 }
