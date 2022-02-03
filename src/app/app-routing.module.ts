@@ -10,9 +10,9 @@ import { PageNotFoundComponent } from './shared/pages/page-not-found/page-not-fo
 const ROUTES: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   {
-    path: '', // {1}
+    path: '',
     component: MainLayoutComponent,
-    canActivate: [AuthGuard], // {2}
+    canActivate: [AuthGuard],
     children: [
       {
         path: 'dashboard',
@@ -32,20 +32,13 @@ const ROUTES: Routes = [
   },
   {
     path: '',
-    component: AuthLayoutComponent, // {4}
+    component: AuthLayoutComponent,
     canActivate: [GuestGuard],
     children: [
       {
-        path: 'login',
+        path: '',
         loadChildren: () =>
-          import('./core/auth/login/login.module').then((m) => m.LoginModule),
-      },
-      {
-        path: 'register',
-        loadChildren: () =>
-          import('./core/auth/register/register.module').then(
-            (m) => m.RegisterModule
-          ),
+          import('./core/auth/auth.module').then((m) => m.AuthModule),
       },
     ],
   },
