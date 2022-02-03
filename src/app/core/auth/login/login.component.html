@@ -1,25 +1,35 @@
-<div class="container">
-  <div class="card">
-    <h1>Login</h1>
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
-      <div>
-        <label for="email" class="sr-only">Email</label>
-        <input type="email" formControlName="email" placeholder="Email" />
-        <p *ngIf="errors.errors?.email">{{ getError("email") }}</p>
+<div class="box">
+  <h1 class="has-text-centered title">Login</h1>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="field">
+      <label for="email" class="label">Email</label>
+      <div class="control">
+        <input
+          type="email"
+          formControlName="email"
+          placeholder="Email"
+          class="input is-rounded"
+        />
       </div>
-      <div>
-        <label for="password" class="sr-only">Password</label>
+    </div>
+    <div class="field">
+      <label for="password" class="label">Password</label>
+      <div class="control">
         <input
           type="password"
           formControlName="password"
           placeholder="Password"
+          class="input is-rounded"
         />
-        <p *ngIf="errors.errors?.password">{{ getError("password") }}</p>
       </div>
-      <div class="login-page__buttons-container">
-        <button>Log in</button>
-        <a routerLink="/register">Register</a>
-      </div>
-    </form>
-  </div>
+    </div>
+    <div class="field is-grouped is-flex is-justify-content-center">
+      <p class="control">
+        <button class="button is-success is-rounded">Log in</button>
+      </p>
+      <p class="control">
+        <a routerLink="/register" class="button is-ghost">Register</a>
+      </p>
+    </div>
+  </form>
 </div>
