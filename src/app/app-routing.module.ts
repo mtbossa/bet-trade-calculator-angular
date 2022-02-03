@@ -1,45 +1,42 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { LoginPageComponent } from './core/auth/pages/login-page/login-page.component';
-import { LogoutComponent } from './core/auth/pages/logout/logout.component';
-import { RegisterPageComponent } from './core/auth/pages/register-page/register-page.component';
+import { LogoutComponent } from './core/auth/logout/logout.component';
 import { AuthGuard } from './core/guards/auth.guard';
 import { GuestGuard } from './core/guards/guest.guard';
-import { DashboardPageComponent } from './modules/dashboard/pages/dashboard-page/dashboard-page.component';
-import { AuthLayoutComponent } from './shared/layouts/auth-layout/auth-layout.component';
-import { MainLayoutComponent } from './shared/layouts/main-layout/main-layout.component';
+import { AuthLayoutComponent } from './core/layouts/auth-layout/auth-layout.component';
+import { MainLayoutComponent } from './core/layouts/main-layout/main-layout.component';
 import { PageNotFoundComponent } from './shared/pages/page-not-found/page-not-found.component';
 
 const ROUTES: Routes = [
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full' }, // If user not authenticated, AuthGuard will redirect to /login
   {
-    path: '', // {1}
+    path: '',
     component: MainLayoutComponent,
-    canActivate: [AuthGuard], // {2}
+    canActivate: [AuthGuard],
     children: [
-      { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
       {
         path: 'dashboard',
-        component: DashboardPageComponent, // {3}
+        loadChildren: () =>
+          import('./modules/dashboard/dashboard.module').then(
+            (m) => m.DashboardModule
+          ),
       },
       {
         path: 'logout',
-        component: LogoutComponent, // {5}
+        component: LogoutComponent,
       },
     ],
   },
   {
     path: '',
-    component: AuthLayoutComponent, // {4}
-    canActivate: [GuestGuard],
+    component: AuthLayoutComponent,
+    canActivate: [GuestGuard], // Is user is authenticated and tries to enter auth routes, will be redirected to dashboard by this guard.
     children: [
       {
-        path: 'login',
-        component: LoginPageComponent, // {5}
-      },
-      {
-        path: 'register',
-        component: RegisterPageComponent, // {5}
+        path: '',
+        loadChildren: () =>
+          import('./core/auth/auth.module').then((m) => m.AuthModule),
       },
     ],
   },
