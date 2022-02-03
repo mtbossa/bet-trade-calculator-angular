@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { LogoutComponent } from './core/auth/logout/logout.component';
 import { AuthGuard } from './core/guards/auth.guard';
 import { GuestGuard } from './core/guards/guest.guard';
 import { AuthLayoutComponent } from './core/layouts/auth-layout/auth-layout.component';
@@ -23,10 +24,7 @@ const ROUTES: Routes = [
       },
       {
         path: 'logout',
-        loadChildren: () =>
-          import('./core/auth/logout/logout.module').then(
-            (m) => m.LogoutModule
-          ),
+        component: LogoutComponent,
       },
     ],
   },
