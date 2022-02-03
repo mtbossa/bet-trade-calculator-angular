@@ -26,7 +26,10 @@ const ROUTES: Routes = [
       },
       {
         path: 'logout',
-        component: LogoutComponent, // {5}
+        loadChildren: () =>
+          import('./core/auth/logout/logout.module').then(
+            (m) => m.LogoutModule
+          ),
       },
     ],
   },
