@@ -6,7 +6,6 @@ import { LogoutComponent } from './core/auth/views/logout/logout.component';
 import { RegisterPageComponent } from './core/auth/views/register-page/register-page.component';
 import { AuthGuard } from './core/guards/auth.guard';
 import { GuestGuard } from './core/guards/guest.guard';
-import { DashboardPageComponent } from './modules/dashboard/views/dashboard-page/dashboard-page.component';
 import { AuthLayoutComponent } from './core/layouts/auth-layout/auth-layout.component';
 import { MainLayoutComponent } from './core/layouts/main-layout/main-layout.component';
 import { PageNotFoundComponent } from './shared/pages/page-not-found/page-not-found.component';
@@ -38,7 +37,8 @@ const ROUTES: Routes = [
     children: [
       {
         path: 'login',
-        component: LoginPageComponent, // {5}
+        loadChildren: () =>
+          import('./core/auth/login/login.module').then((m) => m.LoginModule),
       },
       {
         path: 'register',
