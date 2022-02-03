@@ -1,0 +1,37 @@
+@import "src/assets/scss/colors.scss";
+@import "src/assets/scss/variables.scss";
+
+.header {
+  background-color: $light-gray;
+  padding: 1.3rem 1rem;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
+  position: relative;
+
+  .navbar {
+    .navbar__open-button {
+      position: absolute;
+    }
+
+    .navbar__user-email {
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .navbar__list {
+      margin: 0;
+      margin-top: 1.3rem;
+      padding: 0;
+      color: $ebony-clay;
+    }
+
+    .navbar__list-item {
+      margin-top: 1rem;
+    }
+
+    .navbar__link {
+      color: $ebony-clay;
+      font-weight: bold;
+      text-decoration: none;
+    }
+  }
+}

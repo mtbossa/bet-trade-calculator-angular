@@ -1,0 +1,16 @@
+<header class="header">
+  <nav class="navbar">
+    <div>
+      <button (click)="openMenu()" class="navbar__open-button">OPEN</button>
+      <div class="navbar__user-email">{{ userEmail }}</div>
+    </div>
+    <ul role="list" *ngIf="isMenuOpen" class="navbar__list">
+      <li class="navbar__list-item">
+        <a routerLink="/dashboard" class="navbar__link">Dashboard</a>
+      </li>
+      <li class="navbar__list-item">
+        <a routerLink="/logout" class="navbar__link">Logout</a>
+      </li>
+    </ul>
+  </nav>
+</header>
