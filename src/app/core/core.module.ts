@@ -17,7 +17,7 @@ function resourceProviderFactory(authService: AuthService) {
         },
         // TODO Must check for server errors (offline) and do something about it
         error: (err) => {
-          authService.logUserOut();
+          authService.logOut().subscribe(() => authService.logUserOut());
           resolve(true);
         },
       });
