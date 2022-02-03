@@ -20,7 +20,10 @@ const ROUTES: Routes = [
     children: [
       {
         path: 'dashboard',
-        component: DashboardPageComponent, // {3}
+        loadChildren: () =>
+          import('./modules/dashboard/dashboard.module').then(
+            (m) => m.DashboardModule
+          ),
       },
       {
         path: 'logout',
