@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -16,7 +15,7 @@ import { MainLayoutComponent } from './core/layouts/main-layout/main-layout.comp
     AuthLayoutComponent,
     AppHeaderComponent,
   ],
-  imports: [BrowserModule, CoreModule, AppRoutingModule, FlexLayoutModule],
+  imports: [BrowserModule, CoreModule, AppRoutingModule],
   providers: [],
   bootstrap: [AppComponent],
 })
