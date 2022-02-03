@@ -1,0 +1,65 @@
+@import "src/assets/scss/colors.scss";
+@import "src/assets/scss/variables.scss";
+
+.container {
+  width: fit-content;
+  margin: 0 auto;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.card {
+  background-color: $light-gray;
+  padding: 2rem;
+  box-shadow: 0 0 15px 5px $ebony-clay;
+  border-radius: $border-radius-sm;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+h1 {
+  color: $ebony-clay;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+input {
+  background-color: $ebony-clay;
+  appearance: none;
+  padding: 1rem;
+  border-radius: $border-radius-sm;
+  border: none;
+  color: $white;
+  outline: none;
+}
+
+button {
+  background-color: $green;
+  border: none;
+  border-radius: $border-radius-sm;
+  padding: 1rem;
+  color: $white;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+}
+
+.login-page__buttons-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+a {
+  color: $ebony-clay;
+  font-weight: bold;
+  text-decoration: none;
+}

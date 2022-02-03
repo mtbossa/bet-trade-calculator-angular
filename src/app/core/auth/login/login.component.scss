@@ -38,7 +38,9 @@ input {
   appearance: none;
   padding: 1rem;
   border-radius: $border-radius-sm;
+  border: none;
   color: $white;
+  outline: none;
 }
 
 button {
@@ -47,11 +49,17 @@ button {
   border-radius: $border-radius-sm;
   padding: 1rem;
   color: $white;
-  box-shadow: 0 0 10px 0 $ebony-clay;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
 }
 
 .login-page__buttons-container {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+}
+
+a {
+  color: $ebony-clay;
+  font-weight: bold;
+  text-decoration: none;
 }
