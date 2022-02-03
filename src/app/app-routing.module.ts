@@ -9,7 +9,7 @@ import { MainLayoutComponent } from './core/layouts/main-layout/main-layout.comp
 import { PageNotFoundComponent } from './shared/pages/page-not-found/page-not-found.component';
 
 const ROUTES: Routes = [
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full' }, // If user not authenticated, AuthGuard will redirect to /login
   {
     path: '',
     component: MainLayoutComponent,
@@ -31,7 +31,7 @@ const ROUTES: Routes = [
   {
     path: '',
     component: AuthLayoutComponent,
-    canActivate: [GuestGuard],
+    canActivate: [GuestGuard], // Is user is authenticated and tries to enter auth routes, will be redirected to dashboard by this guard.
     children: [
       {
         path: '',

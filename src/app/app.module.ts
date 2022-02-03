@@ -9,17 +9,8 @@ import { AuthLayoutComponent } from './core/layouts/auth-layout/auth-layout.comp
 import { MainLayoutComponent } from './core/layouts/main-layout/main-layout.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    MainLayoutComponent,
-    AuthLayoutComponent,
-  ],
-  imports: [
-    BrowserModule,
-    CoreModule,
-    AppRoutingModule,
-    FlexLayoutModule,
-  ],
+  declarations: [AppComponent, MainLayoutComponent, AuthLayoutComponent],
+  imports: [BrowserModule, CoreModule, AppRoutingModule, FlexLayoutModule],
   providers: [],
   bootstrap: [AppComponent],
 })
