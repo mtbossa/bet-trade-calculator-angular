@@ -18,6 +18,7 @@ type LoginFormErrors = { email?: Array<string>; password?: Array<string> };
 })
 export class LoginComponent implements OnInit {
   form!: FormGroup;
+  formSubmitted = false;
   errors: LoginErrors<LoginFormErrors> = {};
 
   constructor(
@@ -34,6 +35,14 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
+    this.formSubmitted = true;
+    this.form.get('email')?.markAsUntouched();
+    this.form.get('password')?.markAsUntouched();
+
+    if (this.form.invalid) {
+      return;
+    }
+
     this.authService.logIn(this.form.value).subscribe({
       next: () => {
         this.authService
@@ -45,6 +54,10 @@ export class LoginComponent implements OnInit {
         this.errors = { ...errorResponse.error };
       },
     });
+  }
+
+  onInput() {
+    this.formSubmitted = false;
   }
 
   getError(property: keyof LoginFormErrors) {
