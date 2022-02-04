@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
-  FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
@@ -34,6 +33,10 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this._createForm();
+  }
+
+  private _createForm() {
     this.form = this.formBuilder.group({
       email: ['test@test.com', [Validators.required, Validators.email]],
       password: ['password', Validators.required],
