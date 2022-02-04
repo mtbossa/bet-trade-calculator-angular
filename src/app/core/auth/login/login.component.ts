@@ -35,15 +35,14 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
+      email: ['test@test.com', [Validators.required, Validators.email]],
+      password: ['password', Validators.required],
     });
   }
 
   onSubmit() {
-    console.log(this.form);
-
     this.formSubmitted = true;
+    this.errors = {};
     this.form.get('email')?.markAsUntouched();
     this.form.get('password')?.markAsUntouched();
 
@@ -68,7 +67,7 @@ export class LoginComponent implements OnInit {
     this.formSubmitted = false;
   }
 
-  getError(property: keyof LoginFormErrors) {
+  getServerError(property: keyof LoginFormErrors): string | boolean {
     if (this.errors.errors && this.errors.errors[property]) {
       const fieldErrorArray = this.errors.errors[property];
       if (fieldErrorArray) {
@@ -80,7 +79,7 @@ export class LoginComponent implements OnInit {
       return this.errors.message;
     }
 
-    return `Undefined error in ${property} field`;
+    return false;
   }
 
   hasError(field: string, errorType?: string) {

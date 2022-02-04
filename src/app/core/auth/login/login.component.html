@@ -1,5 +1,11 @@
 <div class="box">
   <h1 class="has-text-centered title">Login</h1>
+  <div
+    class="notification is-danger has-text-centered"
+    *ngIf="getServerError('email')"
+  >
+    {{ getServerError("email") }}
+  </div>
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="field">
       <label for="email" class="label">Email</label>
@@ -14,10 +20,16 @@
             'is-danger': hasError('email')
           }"
         />
-        <p *ngIf="hasError('email', 'required')" class="help has-text-centered is-danger">
+        <p
+          *ngIf="hasError('email', 'required')"
+          class="help has-text-centered is-danger"
+        >
           Email is required
         </p>
-        <p *ngIf="hasError('email', 'email')" class="help has-text-centered is-danger">
+        <p
+          *ngIf="hasError('email', 'email')"
+          class="help has-text-centered is-danger"
+        >
           Email is invalid
         </p>
       </div>
