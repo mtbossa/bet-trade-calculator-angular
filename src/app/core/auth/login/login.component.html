@@ -11,22 +11,13 @@
           (input)="onInput()"
           class="input is-rounded"
           [ngClass]="{
-            'is-danger':
-              !form.get('email')?.valid &&
-              formSubmitted &&
-              form.get('email')?.untouched
+            'is-danger': hasError('email')
           }"
         />
-        <p
-          *ngIf="form.get('email')?.errors?.['required'] && formSubmitted && form.get('email')?.untouched"
-          class="help has-text-centered is-danger"
-        >
+        <p *ngIf="hasError('email', 'required')" class="help has-text-centered is-danger">
           Email is required
         </p>
-        <p
-          *ngIf="form.get('email')?.errors?.['email'] && formSubmitted && form.get('email')?.untouched"
-          class="help has-text-centered is-danger"
-        >
+        <p *ngIf="hasError('email', 'email')" class="help has-text-centered is-danger">
           Email is invalid
         </p>
       </div>
@@ -41,14 +32,11 @@
           (input)="onInput()"
           class="input is-rounded"
           [ngClass]="{
-            'is-danger':
-              !form.get('password')?.valid &&
-              formSubmitted &&
-              form.get('password')?.untouched
+            'is-danger': hasError('password')
           }"
         />
         <p
-          *ngIf="form.get('password')?.errors?.['required'] && formSubmitted&& form.get('password')?.untouched"
+          *ngIf="hasError('password', 'required')"
           class="help has-text-centered is-danger"
         >
           Password is required

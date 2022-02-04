@@ -1,6 +1,12 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
@@ -29,12 +35,14 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      email: ['teste@teste.com', [Validators.required, Validators.email]],
-      password: ['password', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required],
     });
   }
 
   onSubmit() {
+    console.log(this.form);
+
     this.formSubmitted = true;
     this.form.get('email')?.markAsUntouched();
     this.form.get('password')?.markAsUntouched();
@@ -73,5 +81,20 @@ export class LoginComponent implements OnInit {
     }
 
     return `Undefined error in ${property} field`;
+  }
+
+  hasError(field: string, errorType?: string) {
+    if (!this.formSubmitted) return false;
+
+    if (!errorType && this.form.get(field)?.invalid) {
+      return true;
+    }
+
+    const error = errorType as keyof AbstractControl;
+    return (
+      this.form.get(field)?.errors?.[error] &&
+      this.formSubmitted &&
+      this.form.get(field)?.untouched
+    );
   }
 }
