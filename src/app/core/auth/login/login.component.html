@@ -9,7 +9,9 @@
           formControlName="email"
           placeholder="Email"
           class="input is-rounded"
+          [ngClass]="{ 'is-danger': form.getError }"
         />
+        <p class="help is-danger has-text-centered">This email is invalid</p>
       </div>
     </div>
     <div class="field">
@@ -19,11 +21,12 @@
           type="password"
           formControlName="password"
           placeholder="Password"
-          class="input is-rounded"
+          class="input is-rounded is-danger"
         />
+        <p class="help is-danger has-text-centered">This password is invalid</p>
       </div>
     </div>
-    <div class="field is-grouped is-flex is-justify-content-center">
+    <div class="field is-grouped is-grouped-centered">
       <p class="control">
         <button class="button is-success is-rounded">Log in</button>
       </p>
