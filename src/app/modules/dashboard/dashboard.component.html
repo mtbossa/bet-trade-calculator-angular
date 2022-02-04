@@ -1,1 +1,31 @@
-<p>dashboard works!</p>
+<main class="section">
+  <article *ngFor="let match of matches" class="box">
+    <div class="has-text-centered">
+      <p class="is-size-4">{{ match.team_one }}</p>
+      <p>vs</p>
+      <p class="is-size-4">{{ match.team_two }}</p>
+    </div>
+
+    <div class="level is-mobile mt-4">
+      <div class="level-item has-text-centered">
+        <div>
+          <p class="heading has-text-info-dark">Winner</p>
+          <p *ngIf="match.winner_team" class="title">{{ match.winner_team }}</p>
+          <p *ngIf="!match.winner_team" class="title">-</p>
+        </div>
+      </div>
+      <div class="level-item has-text-centered">
+        <div>
+          <p class="heading has-text-info-dark">Profit</p>
+          <p class="title">123</p>
+        </div>
+      </div>
+      <div class="level-item has-text-centered">
+        <div>
+          <p class="heading has-text-info-dark">Amount</p>
+          <p class="title">456K</p>
+        </div>
+      </div>
+    </div>
+  </article>
+</main>

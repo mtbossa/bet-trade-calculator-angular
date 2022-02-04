@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/core/services/auth.service';
-import { User } from 'src/app/shared/models/user.model';
+import { MatchesService } from 'src/app/core/services/matches.service';
+import { Match } from 'src/app/shared/models/match.model';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -10,13 +10,13 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
-  constructor(private authService: AuthService, private http: HttpClient) {}
+  public matches: Match[] = [];
+
+  constructor(private matchService: MatchesService, private http: HttpClient) {}
 
   ngOnInit(): void {
-    this.http
-      .get<User>(`${environment.API_URL}/api/user`)
-      .subscribe((res) =>
-        console.log('dashboard teste for authentication: ', res)
-      );
+    this.matchService.getAllMatches();
+    this.matchService.matches$.subscribe((res) => (this.matches = [...res]));
+    // TODO calc totals of the retrieved matches
   }
 }
