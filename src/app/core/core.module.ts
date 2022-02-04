@@ -5,7 +5,7 @@ import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { CookieModule } from 'ngx-cookie';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { AuthService } from './services/auth.service';
-import { AppHeaderComponent } from './layouts/main-layout/components/app-header/app-header.component';
+import { AppNavComponent } from './layouts/main-layout/components/app-nav/app-nav.component';
 
 function resourceProviderFactory(authService: AuthService) {
   return () => {

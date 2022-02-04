@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './app-header.component.html',
-  styleUrls: ['./app-header.component.scss'],
+  selector: 'app-nav',
+  templateUrl: './app-nav.component.html',
+  styleUrls: ['./app-nav.component.scss'],
 })
-export class AppHeaderComponent implements OnInit {
+export class AppNavComponent implements OnInit {
   isMenuOpen = false;
   userEmail?: string;
 
