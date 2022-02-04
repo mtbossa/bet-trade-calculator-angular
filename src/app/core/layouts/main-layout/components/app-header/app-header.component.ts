@@ -16,7 +16,7 @@ export class AppHeaderComponent implements OnInit {
     this.authService.user$.subscribe((user) => (this.userEmail = user?.email));
   }
 
-  openMenu() {
+  toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
   }
 }
