@@ -9,17 +9,22 @@
     </p>
   </div>
 
-  <div class="level is-mobile mt-4">
+  <div>
+    <a
+      [routerLink]="['/matches', match?.id]"
+      routerLinkActive="router-link-active"
+      >Bet</a
+    >
+    <button>Delete</button>
+  </div>
+
+  <div class="level is-mobile mt-4" *ngIf="match?.winner_team">
     <div class="level-item has-text-centered">
       <div>
         <p class="heading has-text-info-dark">Profit</p>
-        <p class="title">R$ {{ match?.totals?.profit?.toFixed(2) }}</p>
-      </div>
-    </div>
-    <div class="level-item has-text-centered">
-      <div>
-        <p class="heading has-text-info-dark">Amount</p>
-        <p class="title">R$ {{ match?.totals?.amount?.toFixed(2) }}</p>
+        <p class="title">
+          R$ {{ match?.totals?.finished?.realProfit?.toFixed(2) }}
+        </p>
       </div>
     </div>
   </div>
