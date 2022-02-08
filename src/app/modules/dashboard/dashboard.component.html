@@ -1,4 +1,31 @@
 <main class="section">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="field">
+      <label for="email" class="label">Team One</label>
+      <div class="control">
+        <input
+          type="text"
+          formControlName="teamOne"
+          placeholder="Team One"
+          class="input is-rounded"
+        />
+      </div>
+    </div>
+    <div class="field">
+      <label for="password" class="label">Team Two</label>
+      <div class="control">
+        <input
+          type="password"
+          formControlName="password"
+          placeholder="Password"
+          class="input is-rounded"
+        />
+      </div>
+    </div>
+    <p class="control">
+      <button class="button is-success is-rounded">New Match</button>
+    </p>
+  </form>
   <div *ngFor="let match of matches" class="box">
     <app-match-card [match]="match"></app-match-card>
   </div>
