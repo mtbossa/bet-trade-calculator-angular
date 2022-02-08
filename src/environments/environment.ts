@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  API_URL: 'http://api.betting-calculator.com:8000',
+  API_URL: 'http://api.betting-calculator.com',
 };
 
 /*
