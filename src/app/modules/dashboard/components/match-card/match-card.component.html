@@ -1,0 +1,26 @@
+<article>
+  <div class="has-text-centered">
+    <p class="is-size-4">
+      {{ match?.team_one }} <span *ngIf="match?.winner_team === 1">OK</span>
+    </p>
+    <p>vs</p>
+    <p class="is-size-4">
+      {{ match?.team_two }} <span *ngIf="match?.winner_team === 2">OK</span>
+    </p>
+  </div>
+
+  <div class="level is-mobile mt-4">
+    <div class="level-item has-text-centered">
+      <div>
+        <p class="heading has-text-info-dark">Profit</p>
+        <p class="title">R$ {{ match?.totals?.profit?.toFixed(2) }}</p>
+      </div>
+    </div>
+    <div class="level-item has-text-centered">
+      <div>
+        <p class="heading has-text-info-dark">Amount</p>
+        <p class="title">R$ {{ match?.totals?.amount?.toFixed(2) }}</p>
+      </div>
+    </div>
+  </div>
+</article>

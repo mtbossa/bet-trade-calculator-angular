@@ -16,7 +16,11 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.matchService.getAllMatches();
-    this.matchService.matches$.subscribe((res) => (this.matches = [...res]));
+    this.matchService.matches$.subscribe((res) => {
+      this.matches = [...res];
+      console.log('oi: ', this.matches);
+    });
+
     // TODO calc totals of the retrieved matches
   }
 }
