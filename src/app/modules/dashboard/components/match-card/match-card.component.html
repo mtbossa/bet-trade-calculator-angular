@@ -15,7 +15,7 @@
       routerLinkActive="router-link-active"
       >Bet</a
     >
-    <button>Delete</button>
+    <button (click)="onDelete(match!.id)">Delete</button>
   </div>
 
   <div class="level is-mobile mt-4" *ngIf="match?.winner_team">

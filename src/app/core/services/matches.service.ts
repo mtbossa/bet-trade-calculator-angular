@@ -12,11 +12,15 @@ export class MatchesService {
 
   constructor(private http: HttpClient) {}
 
-  createMatch(match: { team_one: string; team_two: string }) {
+  public createMatch(match: { team_one: string; team_two: string }) {
     return this.http.post<Match>(`${environment.API_URL}/api/matches`, match);
   }
 
-  getAllMatches() {
+  public deleteMatch(matchId: number) {
+    return this.http.delete(`${environment.API_URL}/api/matches/${matchId}`);
+  }
+
+  public getAllMatches() {
     this.http
       .get<Match[]>(`${environment.API_URL}/api/matches?with_bets=true`)
       .pipe(

@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { MatchesService } from 'src/app/core/services/matches.service';
 import { Match } from 'src/app/shared/models/match.model';
 
 @Component({
@@ -8,10 +9,15 @@ import { Match } from 'src/app/shared/models/match.model';
 })
 export class MatchCardComponent implements OnInit {
   @Input() match?: Match;
+  @Output() deleted: EventEmitter<number> = new EventEmitter<number>();
 
-  constructor() {}
+  constructor(private matchesService: MatchesService) {}
 
   ngOnInit(): void {
     console.log('match: ', this.match);
+  }
+
+  onDelete(matchId: number) {
+    this.deleted.emit(matchId);
   }
 }

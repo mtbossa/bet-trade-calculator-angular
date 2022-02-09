@@ -31,10 +31,18 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  public onDelete(event: number) {
+    this.matchService.deleteMatch(event).subscribe((res) => {
+      this.matchService.matches$.next(
+        this.matches.filter((match) => match.id !== event)
+      );
+    });
+  }
+
   private _createForm() {
     this.form = this.formBuilder.group({
       team_one: ['', [Validators.required, Validators.max(20)]],
-      team_two: ['', Validators.required, Validators.max(20)],
+      team_two: ['', [Validators.required, Validators.max(20)]],
     });
   }
   onSubmit() {
@@ -44,11 +52,10 @@ export class DashboardComponent implements OnInit {
 
     this.matchService.createMatch(this.form.value).subscribe({
       next: (match: Match) => {
-        this.matchService.matches$.next([...this.matches, match]);
+        this.matchService.matches$.next([match, ...this.matches]);
       },
       error: (errorResponse: HttpErrorResponse) => {
-        this.errors = {};
-        this.errors = { ...errorResponse.error };
+        console.log(errorResponse);
       },
     });
   }
