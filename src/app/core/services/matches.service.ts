@@ -13,12 +13,22 @@ export class MatchesService {
 
   constructor(private http: HttpClient) {}
 
+  public deleteBet(betId: number) {
+    return this.http
+      .delete(`${environment.API_URL}/api/bets/${betId}`)
+      .pipe(take(1));
+  }
+
   public createMatch(match: { team_one: string; team_two: string }) {
-    return this.http.post<Match>(`${environment.API_URL}/api/matches`, match);
+    return this.http
+      .post<Match>(`${environment.API_URL}/api/matches`, match)
+      .pipe(take(1));
   }
 
   public deleteMatch(matchId: number) {
-    return this.http.delete(`${environment.API_URL}/api/matches/${matchId}`);
+    return this.http
+      .delete(`${environment.API_URL}/api/matches/${matchId}`)
+      .pipe(take(1));
   }
 
   public getSingleMatch(matchId: number, withBets: boolean = true) {
@@ -44,10 +54,9 @@ export class MatchesService {
     matchId: number,
     bet: { betted_team: number; odd: number; amount: number }
   ) {
-    return this.http.post<Bet>(
-      `${environment.API_URL}/api/matches/${matchId}/bets`,
-      bet
-    );
+    return this.http
+      .post<Bet>(`${environment.API_URL}/api/matches/${matchId}/bets`, bet)
+      .pipe(take(1));
   }
 
   public getAllMatches(withBets: boolean = true) {
@@ -75,7 +84,7 @@ export class MatchesService {
     let teamOneTotals = { amount: 0, profit: 0, realProfit: 0 };
     let teamTwoTotals = { amount: 0, profit: 0, realProfit: 0 };
 
-    match.bets?.forEach((bet) => {
+    match.bets.forEach((bet) => {
       let currentTeam = bet.betted_team === 1 ? teamOneTotals : teamTwoTotals;
 
       currentTeam.amount += bet.amount;

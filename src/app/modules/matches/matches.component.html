@@ -39,19 +39,50 @@
   </p>
 </form>
 
+<div *ngIf="match?.totals?.equalize?.amount! > 0">
+  {{ match?.totals?.equalize?.amount! > 0 }}
+  Bet {{ match?.totals?.equalize?.amount }} on team
+  {{ match?.totals?.equalize?.teamName }} at odd
+  {{ match?.totals?.equalize?.odd }} to equalize your bets.
+</div>
+
+<h2>Bet history</h2>
+<h3>{{ match?.team_one }}</h3>
 <table class="table">
   <thead>
     <tr>
-      <th>Team</th>
       <th>Amount</th>
-      <th>Odd</th>
+      <th colspan="2">Odd</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let bet of match.bets">
-      <td>{{ bet.betted_team }}</td>
-      <td>{{ bet.amount }}</td>
-      <td>{{ bet.odd }}</td>
+    <td *ngIf="!getTeamBets(1)?.length">No bets yet.</td>
+    <ng-template [ngIf]="getTeamBets(1)?.length">
+      <tr *ngFor="let bet of getTeamBets(1)">
+        <td>{{ bet.amount }}</td>
+        <td>{{ bet.odd }}</td>
+        <td><button (click)="onBetDelete(bet.id)">Delete</button></td>
+      </tr>
+    </ng-template>
+  </tbody>
+</table>
+
+<h3>{{ match?.team_two }}</h3>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Amount</th>
+      <th colspan="2">Odd</th>
     </tr>
+  </thead>
+  <tbody>
+    <td *ngIf="!getTeamBets(2)?.length">No bets yet.</td>
+    <ng-template [ngIf]="getTeamBets(2)?.length">
+      <tr *ngFor="let bet of getTeamBets(2)">
+        <td>{{ bet.amount }}</td>
+        <td>{{ bet.odd }}</td>
+        <td><button (click)="onBetDelete(bet.id)">Delete</button></td>
+      </tr>
+    </ng-template>
   </tbody>
 </table>

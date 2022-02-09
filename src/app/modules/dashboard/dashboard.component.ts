@@ -22,8 +22,8 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this._createForm();
     this.matchService.getAllMatches();
-    this.matchService.matches$.subscribe((res) => {
-      this.matches = [...res];
+    this.matchService.matches$.subscribe((matches) => {
+      this.matches = [...matches];
     });
   }
 

@@ -11,7 +11,7 @@ import { Match } from 'src/app/shared/models/match.model';
 })
 export class MatchesComponent implements OnInit {
   public form!: FormGroup;
-  public match!: Match;
+  public match?: Match;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -34,8 +34,14 @@ export class MatchesComponent implements OnInit {
         null,
         [Validators.required, Validators.min(1), Validators.max(2)],
       ],
-      amount: [null, [Validators.required, Validators.max(10000000)]],
-      odd: [null, [Validators.required, Validators.max(1000)]],
+      amount: [
+        null,
+        [Validators.required, Validators.min(0.05), Validators.max(10000000)],
+      ],
+      odd: [
+        null,
+        [Validators.required, Validators.min(1.01), Validators.max(1000)],
+      ],
     });
   }
 
@@ -44,11 +50,22 @@ export class MatchesComponent implements OnInit {
       return;
     }
 
-    this.matchesService.createBet(this.match.id, this.form.value).subscribe({
+    this.matchesService.createBet(this.match!.id, this.form.value).subscribe({
       next: (bet) => {
-        this.match.bets = [bet, ...this.match.bets];
-        this.match = this.matchesService.calcMatchTotals(this.match);
+        this.match!.bets = [bet, ...this.match!.bets];
+        this.match = { ...this.matchesService.calcMatchTotals(this.match!) };
       },
+    });
+  }
+
+  public getTeamBets(team: number) {
+    return this.match?.bets.filter((bet) => bet.betted_team === team);
+  }
+
+  public onBetDelete(betId: number) {
+    this.matchesService.deleteBet(betId).subscribe(() => {
+      this.match!.bets = this.match!.bets.filter((bet) => bet.id !== betId);
+      this.match = { ...this.matchesService.calcMatchTotals(this.match!) };
     });
   }
 }
