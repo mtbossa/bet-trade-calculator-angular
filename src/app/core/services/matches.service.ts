@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, take } from 'rxjs';
+import { Bet } from 'src/app/shared/models/bet.model';
 import { Match } from 'src/app/shared/models/match.model';
 import { environment } from 'src/environments/environment';
 
@@ -20,9 +21,39 @@ export class MatchesService {
     return this.http.delete(`${environment.API_URL}/api/matches/${matchId}`);
   }
 
-  public getAllMatches() {
+  public getSingleMatch(matchId: number, withBets: boolean = true) {
+    const queryWithBets = withBets ? 'with_bets=true' : '';
+    return this.http
+      .get<Match>(
+        `${environment.API_URL}/api/matches/${matchId}?${queryWithBets}`
+      )
+      .pipe(
+        take(1),
+        map((match: Match) => {
+          if (match.bets && match.bets.length > 0) {
+            return {
+              ...this.calcMatchTotals(match),
+            };
+          }
+          return match;
+        })
+      );
+  }
+
+  public createBet(
+    matchId: number,
+    bet: { betted_team: number; odd: number; amount: number }
+  ) {
+    return this.http.post<Bet>(
+      `${environment.API_URL}/api/matches/${matchId}/bets`,
+      bet
+    );
+  }
+
+  public getAllMatches(withBets: boolean = true) {
+    const queryWithBets = withBets ? 'with_bets=true' : '';
     this.http
-      .get<Match[]>(`${environment.API_URL}/api/matches?with_bets=true`)
+      .get<Match[]>(`${environment.API_URL}/api/matches?${queryWithBets}`)
       .pipe(
         take(1),
         map((matches: Match[]) => {
@@ -30,7 +61,7 @@ export class MatchesService {
             // If the match has bets, calculate the values
             if (match.bets && match.bets.length > 0) {
               return {
-                ...this._calcMatchTotals(match),
+                ...this.calcMatchTotals(match),
               };
             }
             return match;
@@ -40,7 +71,7 @@ export class MatchesService {
       .subscribe((matches) => this.matches$.next(matches));
   }
 
-  private _calcMatchTotals(match: Match): Match {
+  calcMatchTotals(match: Match): Match {
     let teamOneTotals = { amount: 0, profit: 0, realProfit: 0 };
     let teamTwoTotals = { amount: 0, profit: 0, realProfit: 0 };
 
@@ -51,16 +82,40 @@ export class MatchesService {
       currentTeam.profit += bet.profit;
     });
 
-    teamOneTotals.realProfit = teamOneTotals.profit - teamTwoTotals.amount;
-    teamTwoTotals.realProfit = teamTwoTotals.profit - teamOneTotals.amount;
+    teamOneTotals.realProfit = this._calcTotalRealProfit(
+      teamOneTotals.profit,
+      teamOneTotals.amount,
+      teamTwoTotals.amount
+    );
+    teamTwoTotals.realProfit = this._calcTotalRealProfit(
+      teamTwoTotals.profit,
+      teamTwoTotals.amount,
+      teamOneTotals.amount
+    );
+
+    const equalize = {
+      equalize: this._calcEqualize(
+        teamOneTotals,
+        teamTwoTotals,
+        match.team_one,
+        match.team_two
+      ),
+    };
+
+    const newMatch = {
+      ...match,
+      totals: {
+        ...equalize,
+        teamOne: teamOneTotals,
+        teamTwo: teamTwoTotals,
+      },
+    };
 
     if (match.winner_team) {
       return {
-        ...match,
+        ...newMatch,
         totals: {
-          equalize: this._calcEqualize(teamOneTotals, teamTwoTotals),
-          teamOne: teamOneTotals,
-          teamTwo: teamTwoTotals,
+          ...newMatch.totals,
           finished: this._calcMatchProfit(
             match.winner_team,
             teamOneTotals,
@@ -70,14 +125,7 @@ export class MatchesService {
       };
     }
 
-    return {
-      ...match,
-      totals: {
-        equalize: this._calcEqualize(teamOneTotals, teamTwoTotals),
-        teamOne: teamOneTotals,
-        teamTwo: teamTwoTotals,
-      },
-    };
+    return newMatch;
   }
 
   private _calcMatchProfit(
@@ -96,28 +144,29 @@ export class MatchesService {
     }
   }
 
-  private _calcEqualize(teamOneTotals: any, teamTwoTotals: any) {
+  private _calcEqualize(
+    teamOneTotals: any,
+    teamTwoTotals: any,
+    teamOneName: string,
+    teamTwoName: string
+  ) {
     const teamOneRealProfit = teamOneTotals.realProfit;
     const teamTwoRealProfit = teamTwoTotals.realProfit;
-    console.log(teamOneRealProfit);
-    console.log(teamTwoRealProfit);
 
     if (teamOneRealProfit > 0 && teamTwoRealProfit < 0) {
       // Bet on team two
-      console.log('oi');
       return {
         teamNumber: 2,
-        teamName: 'team_two',
-        amount: teamOneRealProfit,
+        teamName: teamTwoName,
+        amount: teamOneTotals.amount,
         odd: this._calcOdd(teamTwoRealProfit, teamOneRealProfit),
       };
     } else if (teamTwoRealProfit > 0 && teamOneRealProfit < 0) {
       // Bet on team one
-      console.log('tchau');
       return {
-        teamNumber: 2,
-        teamName: 'team_two',
-        amount: teamOneRealProfit,
+        teamNumber: 1,
+        teamName: teamOneName,
+        amount: teamTwoTotals.amount,
         odd: this._calcOdd(teamOneRealProfit, teamTwoRealProfit),
       };
     }
@@ -132,5 +181,13 @@ export class MatchesService {
 
   private _calcOdd(debtTeamRealProfit: number, profitTeamRealProfit: number) {
     return (profitTeamRealProfit - debtTeamRealProfit) / profitTeamRealProfit;
+  }
+
+  private _calcTotalRealProfit(
+    totalProfit: number,
+    totalAmount: number,
+    opponentTotalAmoumt: number
+  ) {
+    return totalProfit - totalAmount - opponentTotalAmoumt;
   }
 }

@@ -23,6 +23,13 @@ const ROUTES: Routes = [
           ),
       },
       {
+        path: 'matches',
+        loadChildren: () =>
+          import('./modules/matches/matches.module').then(
+            (m) => m.MatchesModule
+          ),
+      },
+      {
         path: 'logout',
         component: LogoutComponent,
       },

@@ -20,7 +20,6 @@ export class AuthService {
   ) {}
 
   autoLogIn() {
-    console.log('autologin');
     // There's no need to handle unauthorized error, auth interceptor already does it. However, could handle other kind of errors, for example 500
     return this._fetchCurrentUser();
   }
@@ -49,7 +48,6 @@ export class AuthService {
   }
 
   logOut() {
-    console.log('loggin user out');
     return this.http
       .post(`${environment.API_URL}/logout`, {})
       .pipe(take(1));      

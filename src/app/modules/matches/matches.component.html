@@ -1,0 +1,57 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="field">
+    <label for="betted_team" class="label">Team</label>
+    <div class="control">
+      <input
+        id="betted_team"
+        type="number"
+        formControlName="betted_team"
+        placeholder="Team"
+        class="input is-rounded"
+      />
+    </div>
+  </div>
+  <div class="field">
+    <label for="amount" class="label">Amount</label>
+    <div class="control">
+      <input
+        type="number"
+        formControlName="amount"
+        placeholder="Amount"
+        class="input is-rounded"
+      />
+    </div>
+  </div>
+  <div class="field">
+    <label for="odd" class="label">Odd</label>
+    <div class="control">
+      <input
+        id="odd"
+        type="number"
+        formControlName="odd"
+        placeholder="Odd"
+        class="input is-rounded"
+      />
+    </div>
+  </div>
+  <p class="control">
+    <button class="button is-success is-rounded">New Bet</button>
+  </p>
+</form>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Team</th>
+      <th>Amount</th>
+      <th>Odd</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let bet of match.bets">
+      <td>{{ bet.betted_team }}</td>
+      <td>{{ bet.amount }}</td>
+      <td>{{ bet.odd }}</td>
+    </tr>
+  </tbody>
+</table>

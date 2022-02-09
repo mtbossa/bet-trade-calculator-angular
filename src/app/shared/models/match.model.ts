@@ -6,7 +6,7 @@ export interface Match {
   team_two: string;
   user_id: number;
   winner_team?: number;
-  bets?: Array<Bet>;
+  bets: Array<Bet>;
   totals?: {
     equalize?: { teamNumber: number; teamName: string; amount: number; odd: number };
     teamOne?: { amount: number; profit: number; realProfit: number };

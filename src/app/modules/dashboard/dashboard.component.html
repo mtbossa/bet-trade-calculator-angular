@@ -1,10 +1,11 @@
 <main class="section">
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="field">
-      <label for="email" class="label">Team One</label>
+      <label for="team_one" class="label">Team One</label>
       <div class="control">
         <input
           type="text"
+          id="team_one"
           formControlName="team_one"
           placeholder="Team one name"
           class="input is-rounded"
@@ -12,10 +13,11 @@
       </div>
     </div>
     <div class="field">
-      <label for="password" class="label">Team Two</label>
+      <label for="team_two" class="label">Team Two</label>
       <div class="control">
         <input
           type="text"
+          id="team_two"
           formControlName="team_two"
           placeholder="Team two name"
           class="input is-rounded"
@@ -27,6 +29,9 @@
     </p>
   </form>
   <div *ngFor="let match of matches" class="box">
-    <app-match-card [match]="match" (deleted)="onDelete($event)"></app-match-card>
+    <app-match-card
+      [match]="match"
+      (deleted)="onDelete($event)"
+    ></app-match-card>
   </div>
 </main>

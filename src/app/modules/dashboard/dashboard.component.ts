@@ -24,10 +24,6 @@ export class DashboardComponent implements OnInit {
     this.matchService.getAllMatches();
     this.matchService.matches$.subscribe((res) => {
       this.matches = [...res];
-      console.log(
-        '🚀 ~ file: dashboard.component.ts ~ line 21 ~ DashboardComponent ~ this.matchService.matches$.subscribe ~ this.matches',
-        this.matches
-      );
     });
   }
 
@@ -45,7 +41,7 @@ export class DashboardComponent implements OnInit {
       team_two: ['', [Validators.required, Validators.max(20)]],
     });
   }
-  onSubmit() {
+  public onSubmit() {
     if (this.form.invalid) {
       return;
     }
