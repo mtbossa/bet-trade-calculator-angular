@@ -1,5 +1,12 @@
 import { Bet } from './bet.model';
 
+export interface TeamTotals {
+  amount: number;
+  profit: number;
+  realProfit: number;
+  finalProfit: number;
+}
+
 export interface Match {
   id: number;
   team_one: string;
@@ -8,9 +15,14 @@ export interface Match {
   winner_team?: number;
   bets: Array<Bet>;
   totals?: {
-    equalize?: { teamNumber: number; teamName: string; amount: number; odd: number };
-    teamOne?: { amount: number; profit: number; realProfit: number };
-    teamTwo?: { amount: number; profit: number; realProfit: number };
+    equalize?: {
+      teamNumber: number;
+      teamName: string;
+      amount: number;
+      odd: number;
+    };
+    teamOne?: TeamTotals;
+    teamTwo?: TeamTotals;
     finished?: { realProfit: number };
   };
   created_at: string;
