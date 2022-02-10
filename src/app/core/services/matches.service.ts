@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, map, take } from 'rxjs';
+import { BehaviorSubject, map, Observable, take } from 'rxjs';
 import { Bet } from 'src/app/shared/models/bet.model';
-import { Match, TeamTotals } from 'src/app/shared/models/match.model';
+import { Equalize, Match, TeamTotals } from 'src/app/shared/models/match.model';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -19,7 +19,7 @@ export class MatchesService {
       .pipe(take(1));
   }
 
-  public createMatch(match: { team_one: string; team_two: string }) {
+  public createMatch(match: Match): Observable<Match> {
     return this.http
       .post<Match>(`${environment.API_URL}/api/matches`, match)
       .pipe(take(1));
@@ -31,7 +31,10 @@ export class MatchesService {
       .pipe(take(1));
   }
 
-  public getSingleMatch(matchId: number, withBets: boolean = true) {
+  public getSingleMatch(
+    matchId: number,
+    withBets: boolean = true
+  ): Observable<Match> {
     const queryWithBets = withBets ? 'with_bets=true' : '';
     return this.http
       .get<Match>(
@@ -50,16 +53,13 @@ export class MatchesService {
       );
   }
 
-  public createBet(
-    matchId: number,
-    bet: { betted_team: number; odd: number; amount: number }
-  ) {
+  public createBet(matchId: number, bet: Bet): Observable<Bet> {
     return this.http
       .post<Bet>(`${environment.API_URL}/api/matches/${matchId}/bets`, bet)
       .pipe(take(1));
   }
 
-  public getAllMatches(withBets: boolean = true) {
+  public getAllMatches(withBets: boolean = true): void {
     const queryWithBets = withBets ? 'with_bets=true' : '';
     this.http
       .get<Match[]>(`${environment.API_URL}/api/matches?${queryWithBets}`)
@@ -80,7 +80,7 @@ export class MatchesService {
       .subscribe((matches) => this.matches$.next(matches));
   }
 
-  calcMatchTotals(match: Match): Match {
+  public calcMatchTotals(match: Match): Match {
     let teamOneTotals: TeamTotals = {
       amount: 0,
       profit: 0,
@@ -157,7 +157,7 @@ export class MatchesService {
     winnerTeam: number,
     teamOneTotals: any,
     teamTwoTotals: any
-  ) {
+  ): { realProfit: number } {
     if (winnerTeam === 1) {
       return {
         realProfit: teamOneTotals.realProfit - teamTwoTotals.amount,
@@ -170,11 +170,11 @@ export class MatchesService {
   }
 
   private _calcEqualize(
-    teamOneTotals: any,
-    teamTwoTotals: any,
+    teamOneTotals: TeamTotals,
+    teamTwoTotals: TeamTotals,
     teamOneName: string,
     teamTwoName: string
-  ) {
+  ): Equalize {
     const teamOneFinalProfit = teamOneTotals.finalProfit;
     const teamTwoFinalProfit = teamTwoTotals.finalProfit;
 
@@ -204,7 +204,10 @@ export class MatchesService {
     };
   }
 
-  private _calcOdd(debtTeamFinalProfit: number, profitTeamFinalProfit: number) {
+  private _calcOdd(
+    debtTeamFinalProfit: number,
+    profitTeamFinalProfit: number
+  ): number {
     return (
       (profitTeamFinalProfit - debtTeamFinalProfit) / profitTeamFinalProfit
     );
@@ -214,7 +217,7 @@ export class MatchesService {
     teamTotalProfit: number,
     teamTotalAmount: number,
     opponentTotalAmoumt: number
-  ) {
+  ): { realProfit: number; finalProfit: number } {
     const realProfit = teamTotalProfit - teamTotalAmount;
     const finalProfit = realProfit - opponentTotalAmoumt;
 
