@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatchesService } from 'src/app/core/services/matches.service';
 import { Match } from 'src/app/shared/models/match.model';
-import { environment } from 'src/environments/environment';
+import {faCaretDown, faCaretLeft} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,6 +14,9 @@ export class DashboardComponent implements OnInit {
   public matches: Match[] = [];
   public form!: FormGroup;
   public showForm: boolean = false;
+
+  public faCaretDown = faCaretDown;
+  public faCaretLeft = faCaretLeft;
 
   constructor(
     private matchService: MatchesService,

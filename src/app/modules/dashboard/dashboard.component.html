@@ -7,7 +7,8 @@
       <p class="card-header-title has-text-white">Create new match</p>
       <button class="card-header-icon" aria-label="more options">
         <span class="icon">
-          <i class="fas fa-angle-down"></i>
+          <fa-icon *ngIf="showForm" [icon]="faCaretDown"></fa-icon>
+          <fa-icon *ngIf="!showForm" [icon]="faCaretLeft"></fa-icon>
         </span>
       </button>
     </header>
@@ -15,7 +16,7 @@
       <div class="content">
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
           <div class="field">
-            <label for="team_one" class="label">Team One Name</label>
+            <label for="team_one" class="label">Team One</label>
             <div class="control">
               <input
                 type="text"
@@ -28,7 +29,7 @@
             </div>
           </div>
           <div class="field">
-            <label for="team_two" class="label">Team Two Name</label>
+            <label for="team_two" class="label">Team Two</label>
             <div class="control">
               <input
                 type="text"
