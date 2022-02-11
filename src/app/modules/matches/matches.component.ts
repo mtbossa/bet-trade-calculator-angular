@@ -13,7 +13,7 @@ import { Match } from 'src/app/shared/models/match.model';
 export class MatchesComponent implements OnInit {
   public form!: FormGroup;
   public formWinner!: FormGroup;
-  public match?: Match;
+  public match!: Match;
   public teamOneBets: Array<Bet> = [];
   public teamTwoBets: Array<Bet> = [];
 
@@ -29,7 +29,7 @@ export class MatchesComponent implements OnInit {
       this.matchesService.getSingleMatch(params['id']).subscribe((match) => {
         this.match = match;
         this.teamOneBets = this.getTeamBets(1);
-        this.teamTwoBets = this.getTeamBets(1);
+        this.teamTwoBets = this.getTeamBets(2);
       });
     });
   }
@@ -67,6 +67,8 @@ export class MatchesComponent implements OnInit {
       next: (bet) => {
         this.match!.bets = [bet, ...this.match!.bets];
         this.match = { ...this.matchesService.calcMatchTotals(this.match!) };
+        this.teamOneBets = this.getTeamBets(1);
+        this.teamTwoBets = this.getTeamBets(2);
       },
     });
   }
@@ -86,13 +88,15 @@ export class MatchesComponent implements OnInit {
   }
 
   public getTeamBets(team: number) {
-    return this.match!.bets.filter((bet) => bet.betted_team === team);
+    return this.match.bets.filter((bet) => bet.betted_team === team);
   }
 
   public onBetDelete(betId: number) {
     this.matchesService.deleteBet(betId).subscribe(() => {
       this.match!.bets = this.match!.bets.filter((bet) => bet.id !== betId);
       this.match = { ...this.matchesService.calcMatchTotals(this.match!) };
+      this.teamOneBets = this.getTeamBets(1);
+      this.teamTwoBets = this.getTeamBets(2);
     });
   }
 }
