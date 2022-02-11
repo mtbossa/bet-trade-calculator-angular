@@ -5,7 +5,9 @@
       <span *ngIf="match?.winner_team === 1; else teamOneProfit">OK</span
       ><ng-template #teamOneProfit
         ><span
-          *ngIf="match?.winner_team === null && getTeamBets(match!, 1).length"
+          *ngIf="
+            match?.winner_team === null && match?.totals?.teamOne?.finalProfit
+          "
           class="is-size-7"
           >R$ {{ match?.totals?.teamOne?.finalProfit?.toFixed(2) }}</span
         ></ng-template
@@ -17,11 +19,33 @@
       <span *ngIf="match?.winner_team === 2; else teamTwoProfit">OK</span
       ><ng-template #teamTwoProfit
         ><span
-          *ngIf="match?.winner_team === null && getTeamBets(match!, 2).length"
+          *ngIf="
+            match?.winner_team === null && match?.totals?.teamTwo?.finalProfit
+          "
           class="is-size-7"
           >R$ {{ match?.totals?.teamTwo?.finalProfit?.toFixed(2) }}</span
         ></ng-template
       >
+    </p>
+    <p
+      *ngIf="
+        match?.bets?.length &&
+        match?.totals?.equalize?.amount === 0 &&
+        match?.winner_team === null &&
+        match?.totals?.teamOne?.finalProfit === 0 &&
+        match?.totals?.teamTwo?.finalProfit === 0
+      "
+    >
+      Equalized
+    </p>
+    <p
+      *ngIf="
+        match?.winner_team === null &&
+        match?.totals?.teamOne?.finalProfit! > 0 &&
+        match?.totals?.teamTwo?.finalProfit! > 0
+      "
+    >
+      Winning on both
     </p>
   </div>
 
