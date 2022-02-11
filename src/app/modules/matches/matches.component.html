@@ -40,10 +40,9 @@
 </form>
 
 <div *ngIf="match?.totals?.equalize?.amount! > 0">
-  {{ match?.totals?.equalize?.amount! > 0 }}
-  Bet {{ match?.totals?.equalize?.amount }} on team
+  Bet {{ match?.totals?.equalize?.amount?.toFixed(2) }} on team
   {{ match?.totals?.equalize?.teamName }} at odd
-  {{ match?.totals?.equalize?.odd }} to equalize your bets.
+  {{ match?.totals?.equalize?.odd?.toFixed(2) }} to equalize your bets.
 </div>
 
 <h2>Bet history</h2>

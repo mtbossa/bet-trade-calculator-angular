@@ -30,6 +30,7 @@
       <button class="button is-success is-rounded">New Match</button>
     </p>
   </form>
+  <div *ngIf="!matches.length"><p>No matches yet.</p></div>
   <div *ngFor="let match of matches" class="box">
     <app-match-card
       [match]="match"

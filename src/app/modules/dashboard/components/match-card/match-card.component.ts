@@ -14,10 +14,17 @@ export class MatchCardComponent implements OnInit {
   constructor(private matchesService: MatchesService) {}
 
   ngOnInit(): void {
-    console.log("🚀 ~ file: match-card.component.ts ~ line 18 ~ MatchCardComponent ~ ngOnInit ~ this.match", this.match)
+    console.log(
+      '🚀 ~ file: match-card.component.ts ~ line 18 ~ MatchCardComponent ~ ngOnInit ~ this.match',
+      this.match
+    );
   }
 
   onDelete(matchId: number) {
     this.deleted.emit(matchId);
+  }
+
+  public getTeamBets(match: Match, team: number) {
+    return match?.bets.filter((bet) => bet.betted_team === team);
   }
 }

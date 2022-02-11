@@ -1,11 +1,27 @@
 <article>
   <div class="has-text-centered">
     <p class="is-size-4">
-      {{ match?.team_one }} <span *ngIf="match?.winner_team === 1">OK</span>
+      {{ match?.team_one }}
+      <span *ngIf="match?.winner_team === 1; else teamOneProfit">OK</span
+      ><ng-template #teamOneProfit
+        ><span
+          *ngIf="match?.winner_team === null && getTeamBets(match!, 1).length"
+          class="is-size-7"
+          >R$ {{ match?.totals?.teamOne?.finalProfit?.toFixed(2) }}</span
+        ></ng-template
+      >
     </p>
     <p>vs</p>
     <p class="is-size-4">
-      {{ match?.team_two }} <span *ngIf="match?.winner_team === 2">OK</span>
+      {{ match?.team_two }}
+      <span *ngIf="match?.winner_team === 2; else teamTwoProfit">OK</span
+      ><ng-template #teamTwoProfit
+        ><span
+          *ngIf="match?.winner_team === null && getTeamBets(match!, 2).length"
+          class="is-size-7"
+          >R$ {{ match?.totals?.teamTwo?.finalProfit?.toFixed(2) }}</span
+        ></ng-template
+      >
     </p>
   </div>
 
