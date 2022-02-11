@@ -1,35 +1,55 @@
 <main class="section">
-  <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <div class="field">
-      <label for="team_one" class="label">Team One</label>
-      <div class="control">
-        <input
-          type="text"
-          id="team_one"
-          formControlName="team_one"
-          placeholder="Team one name"
-          autocomplete="off"
-          class="input is-rounded"
-        />
+  <div class="card block">
+    <header
+      class="card-header has-background-success"
+      (click)="showForm = !showForm"
+    >
+      <p class="card-header-title has-text-white">Create new match</p>
+      <button class="card-header-icon" aria-label="more options">
+        <span class="icon">
+          <i class="fas fa-angle-down"></i>
+        </span>
+      </button>
+    </header>
+    <div class="card-content" [ngClass]="{ 'is-hidden': !showForm }">
+      <div class="content">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          <div class="field">
+            <label for="team_one" class="label">Team One Name</label>
+            <div class="control">
+              <input
+                type="text"
+                id="team_one"
+                formControlName="team_one"
+                placeholder="Name"
+                autocomplete="off"
+                class="input is-rounded"
+              />
+            </div>
+          </div>
+          <div class="field">
+            <label for="team_two" class="label">Team Two Name</label>
+            <div class="control">
+              <input
+                type="text"
+                id="team_two"
+                formControlName="team_two"
+                placeholder="Name"
+                autocomplete="off"
+                class="input is-rounded"
+              />
+            </div>
+          </div>
+          <div class="field is-grouped is-grouped-centered">
+            <p class="control">
+              <button class="button is-success is-rounded">New Match</button>
+            </p>
+          </div>
+        </form>
       </div>
     </div>
-    <div class="field">
-      <label for="team_two" class="label">Team Two</label>
-      <div class="control">
-        <input
-          type="text"
-          id="team_two"
-          formControlName="team_two"
-          placeholder="Team two name"
-          autocomplete="off"
-          class="input is-rounded"
-        />
-      </div>
-    </div>
-    <p class="control">
-      <button class="button is-success is-rounded">New Match</button>
-    </p>
-  </form>
+  </div>
+
   <div *ngIf="!matches.length"><p>No matches yet.</p></div>
   <div *ngFor="let match of matches" class="box">
     <app-match-card

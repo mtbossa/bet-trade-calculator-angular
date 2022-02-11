@@ -13,6 +13,7 @@ import { environment } from 'src/environments/environment';
 export class DashboardComponent implements OnInit {
   public matches: Match[] = [];
   public form!: FormGroup;
+  public showForm: boolean = false;
 
   constructor(
     private matchService: MatchesService,
