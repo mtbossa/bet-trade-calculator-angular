@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { MatchesService } from 'src/app/core/services/matches.service';
+import { Bet } from 'src/app/shared/models/bet.model';
 import { Match } from 'src/app/shared/models/match.model';
 
 @Component({
@@ -11,7 +12,10 @@ import { Match } from 'src/app/shared/models/match.model';
 })
 export class MatchesComponent implements OnInit {
   public form!: FormGroup;
+  public formWinner!: FormGroup;
   public match?: Match;
+  public teamOneBets: Array<Bet> = [];
+  public teamTwoBets: Array<Bet> = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -24,6 +28,8 @@ export class MatchesComponent implements OnInit {
     this.activatedRoute.params.subscribe((params) => {
       this.matchesService.getSingleMatch(params['id']).subscribe((match) => {
         this.match = match;
+        this.teamOneBets = this.getTeamBets(1);
+        this.teamTwoBets = this.getTeamBets(1);
       });
     });
   }
@@ -43,6 +49,13 @@ export class MatchesComponent implements OnInit {
         [Validators.required, Validators.min(1.01), Validators.max(1000)],
       ],
     });
+
+    this.formWinner = this.formBuilder.group({
+      winner_team: [
+        null,
+        [Validators.required, Validators.min(1), Validators.max(2)],
+      ],
+    });
   }
 
   public onSubmit() {
@@ -58,8 +71,22 @@ export class MatchesComponent implements OnInit {
     });
   }
 
+  public onSubmitWinner() {
+    if (this.formWinner.invalid) {
+      return;
+    }
+
+    this.matchesService
+      .updateMatch(this.match!.id, { ...this.match, ...this.formWinner.value })
+      .subscribe({
+        next: (match) => {
+          this.match = { ...match };
+        },
+      });
+  }
+
   public getTeamBets(team: number) {
-    return this.match?.bets.filter((bet) => bet.betted_team === team);
+    return this.match!.bets.filter((bet) => bet.betted_team === team);
   }
 
   public onBetDelete(betId: number) {

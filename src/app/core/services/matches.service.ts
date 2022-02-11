@@ -13,6 +13,12 @@ export class MatchesService {
 
   constructor(private http: HttpClient) {}
 
+  public updateMatch(matchId: number, match: Match): Observable<Match> {
+    return this.http
+      .put<Match>(`${environment.API_URL}/api/matches/${matchId}`, match)
+      .pipe(take(1));
+  }
+
   public deleteBet(betId: number) {
     return this.http
       .delete(`${environment.API_URL}/api/bets/${betId}`)
@@ -211,7 +217,7 @@ export class MatchesService {
   ): number {
     return (
       Math.round(
-        (((profitTeamFinalProfit - debtTeamFinalProfit) / profitTeamFinalProfit) +
+        ((profitTeamFinalProfit - debtTeamFinalProfit) / profitTeamFinalProfit +
           Number.EPSILON) *
           100
       ) / 100

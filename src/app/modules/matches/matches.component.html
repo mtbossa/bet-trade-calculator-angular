@@ -1,3 +1,21 @@
+<form [formGroup]="formWinner" (ngSubmit)="onSubmitWinner()">
+  <div class="field">
+    <label for="winner_team" class="label">Winner Team</label>
+    <div class="control">
+      <input
+        id="winner_team"
+        type="number"
+        formControlName="winner_team"
+        placeholder="Winner Team"
+        class="input is-rounded"
+      />
+    </div>
+  </div>
+  <p class="control">
+    <button class="button is-success is-rounded">Winner</button>
+  </p>
+</form>
+
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
   <div class="field">
     <label for="betted_team" class="label">Team</label>
@@ -55,9 +73,9 @@
     </tr>
   </thead>
   <tbody>
-    <td *ngIf="!getTeamBets(1)?.length">No bets yet.</td>
-    <ng-template [ngIf]="getTeamBets(1)?.length">
-      <tr *ngFor="let bet of getTeamBets(1)">
+    <td *ngIf="!teamOneBets.length">No bets yet.</td>
+    <ng-template [ngIf]="teamOneBets.length">
+      <tr *ngFor="let bet of teamOneBets">
         <td>{{ bet.amount }}</td>
         <td>{{ bet.odd }}</td>
         <td><button (click)="onBetDelete(bet.id)">Delete</button></td>
@@ -75,9 +93,9 @@
     </tr>
   </thead>
   <tbody>
-    <td *ngIf="!getTeamBets(2)?.length">No bets yet.</td>
-    <ng-template [ngIf]="getTeamBets(2)?.length">
-      <tr *ngFor="let bet of getTeamBets(2)">
+    <td *ngIf="!teamTwoBets.length">No bets yet.</td>
+    <ng-template [ngIf]="teamTwoBets.length">
+      <tr *ngFor="let bet of teamTwoBets">
         <td>{{ bet.amount }}</td>
         <td>{{ bet.odd }}</td>
         <td><button (click)="onBetDelete(bet.id)">Delete</button></td>
