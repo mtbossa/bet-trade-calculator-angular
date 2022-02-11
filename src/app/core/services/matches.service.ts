@@ -204,12 +204,17 @@ export class MatchesService {
     };
   }
 
+  // TODO check for better solutions for rounding
   private _calcOdd(
     debtTeamFinalProfit: number,
     profitTeamFinalProfit: number
   ): number {
     return (
-      (profitTeamFinalProfit - debtTeamFinalProfit) / profitTeamFinalProfit
+      Math.round(
+        (((profitTeamFinalProfit - debtTeamFinalProfit) / profitTeamFinalProfit) +
+          Number.EPSILON) *
+          100
+      ) / 100
     );
   }
 
