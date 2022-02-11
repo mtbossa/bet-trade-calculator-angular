@@ -6,9 +6,10 @@ import { DashboardComponent } from './dashboard.component';
 import { MatchCardComponent } from './components/match-card/match-card.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { TeamNameComponent } from './components/team-name/team-name.component';
 
 @NgModule({
-  declarations: [DashboardComponent, MatchCardComponent],
+  declarations: [DashboardComponent, MatchCardComponent, TeamNameComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,

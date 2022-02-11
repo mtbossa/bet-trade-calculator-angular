@@ -1,32 +1,20 @@
 <article>
-  <div class="has-text-centered">
-    <p class="is-size-4">
-      {{ match?.team_one }}
-      <span *ngIf="match?.winner_team === 1; else teamOneProfit">OK</span
-      ><ng-template #teamOneProfit
-        ><span
-          *ngIf="
-            match?.winner_team === null && match?.totals?.teamOne?.finalProfit
-          "
-          class="is-size-7"
-          >R$ {{ match?.totals?.teamOne?.finalProfit?.toFixed(2) }}</span
-        ></ng-template
-      >
-    </p>
+  <div class="has-text-centered block">
+    <app-team-name
+      [teamName]="match!.team_one"
+      [teamNumber]="1"
+      [winnerTeam]="match?.winner_team"
+      [realProfit]="match?.totals?.finished?.realProfit"
+      [teamFinalProfit]="match?.totals?.teamOne?.realProfit"
+    ></app-team-name>
     <p>vs</p>
-    <p class="is-size-4">
-      {{ match?.team_two }}
-      <span *ngIf="match?.winner_team === 2; else teamTwoProfit">OK</span
-      ><ng-template #teamTwoProfit
-        ><span
-          *ngIf="
-            match?.winner_team === null && match?.totals?.teamTwo?.finalProfit
-          "
-          class="is-size-7"
-          >R$ {{ match?.totals?.teamTwo?.finalProfit?.toFixed(2) }}</span
-        ></ng-template
-      >
-    </p>
+    <app-team-name
+      [teamName]="match!.team_two"
+      [teamNumber]="2"
+      [winnerTeam]="match?.winner_team"
+      [realProfit]="match?.totals?.finished?.realProfit"
+      [teamFinalProfit]="match?.totals?.teamTwo?.realProfit"
+    ></app-team-name>
     <p
       *ngIf="
         match?.bets?.length &&
@@ -36,7 +24,7 @@
         match?.totals?.teamTwo?.finalProfit === 0
       "
     >
-      Equalized
+      <span class="tag">Equalized</span>
     </p>
     <p
       *ngIf="
@@ -45,11 +33,11 @@
         match?.totals?.teamTwo?.finalProfit! > 0
       "
     >
-      Winning on both
+      <span class="tag is-success">Winning on both</span>
     </p>
   </div>
 
-  <div>
+  <div class="block">
     <a
       [routerLink]="['/matches', match!.id]"
       routerLinkActive="router-link-active"
@@ -58,11 +46,17 @@
     <button (click)="onDelete(match!.id)">Delete</button>
   </div>
 
-  <div class="level is-mobile mt-4" *ngIf="match?.winner_team">
+  <div class="level is-mobile block" *ngIf="match?.winner_team">
     <div class="level-item has-text-centered">
       <div>
         <p class="heading has-text-info-dark">Profit</p>
-        <p class="title">
+        <p
+          class="title"
+          [ngClass]="{
+            'has-text-danger': match?.totals?.finished?.realProfit! < 0,
+            'has-text-success': match?.totals?.finished?.realProfit! > 0
+          }"
+        >
           R$ {{ match?.totals?.finished?.realProfit?.toFixed(2) }}
         </p>
       </div>

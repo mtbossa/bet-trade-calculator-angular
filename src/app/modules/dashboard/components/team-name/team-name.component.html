@@ -1,0 +1,21 @@
+<div class="is-size-4 is-flex is-justify-content-center is-align-items-center">
+  <p class="mr-4">{{ teamName }}</p>
+  <span
+    *ngIf="winnerTeam === teamNumber; else teamProfit"
+    class="tag"
+    [ngClass]="{
+      'is-success': realProfit! > 0,
+      'is-danger': realProfit! < 0
+    }"
+    ><span class="icon-text">
+      <span class="icon">
+        <fa-icon [icon]="faTrophy"></fa-icon>
+      </span>
+      <span class="has-text-weight-bold">Winner</span>
+    </span></span
+  ><ng-template #teamProfit
+    ><span *ngIf="winnerTeam === null && teamFinalProfit" class="is-size-7"
+      >R$ {{ teamFinalProfit.toFixed(2) }}</span
+    ></ng-template
+  >
+</div>
