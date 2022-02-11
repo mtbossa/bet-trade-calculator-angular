@@ -63,10 +63,10 @@ export class MatchesComponent implements OnInit {
       return;
     }
 
-    this.matchesService.createBet(this.match!.id, this.form.value).subscribe({
+    this.matchesService.createBet(this.match.id, this.form.value).subscribe({
       next: (bet) => {
-        this.match!.bets = [bet, ...this.match!.bets];
-        this.match = { ...this.matchesService.calcMatchTotals(this.match!) };
+        this.match.bets = [bet, ...this.match.bets];
+        this.match = { ...this.matchesService.calcMatchTotals(this.match) };
         this.teamOneBets = this.getTeamBets(1);
         this.teamTwoBets = this.getTeamBets(2);
       },
@@ -79,7 +79,7 @@ export class MatchesComponent implements OnInit {
     }
 
     this.matchesService
-      .updateMatch(this.match!.id, { ...this.match, ...this.formWinner.value })
+      .updateMatch(this.match.id, { ...this.match, ...this.formWinner.value })
       .subscribe({
         next: (match) => {
           this.match = { ...match };
@@ -93,8 +93,8 @@ export class MatchesComponent implements OnInit {
 
   public onBetDelete(betId: number) {
     this.matchesService.deleteBet(betId).subscribe(() => {
-      this.match!.bets = this.match!.bets.filter((bet) => bet.id !== betId);
-      this.match = { ...this.matchesService.calcMatchTotals(this.match!) };
+      this.match.bets = this.match!.bets.filter((bet) => bet.id !== betId);
+      this.match = { ...this.matchesService.calcMatchTotals(this.match) };
       this.teamOneBets = this.getTeamBets(1);
       this.teamTwoBets = this.getTeamBets(2);
     });
