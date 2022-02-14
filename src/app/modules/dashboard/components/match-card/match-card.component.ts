@@ -2,7 +2,13 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { MatchesService } from 'src/app/core/services/matches.service';
 import { Match } from 'src/app/shared/models/match.model';
-import { faTrophy } from '@fortawesome/free-solid-svg-icons';
+import {
+  faTrophy,
+  faEquals,
+  faGavel,
+  faReceipt,
+  faChartLine,
+} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-match-card',
@@ -15,6 +21,10 @@ export class MatchCardComponent {
 
   // icons
   public faTrophy = faTrophy;
+  public faEquals = faEquals;
+  public faGavel = faGavel;
+  public faReceipt = faReceipt;
+  public faChartLine = faChartLine;
 
   constructor(private matchesService: MatchesService) {}
 

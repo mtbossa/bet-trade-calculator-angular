@@ -5,7 +5,7 @@
       [teamNumber]="1"
       [winnerTeam]="match?.winner_team"
       [realProfit]="match?.totals?.finished?.realProfit"
-      [teamFinalProfit]="match?.totals?.teamOne?.realProfit"
+      [teamFinalProfit]="match?.totals?.teamOne?.finalProfit"
     ></app-team-name>
     <p>vs</p>
     <app-team-name
@@ -13,7 +13,7 @@
       [teamNumber]="2"
       [winnerTeam]="match?.winner_team"
       [realProfit]="match?.totals?.finished?.realProfit"
-      [teamFinalProfit]="match?.totals?.teamTwo?.realProfit"
+      [teamFinalProfit]="match?.totals?.teamTwo?.finalProfit"
     ></app-team-name>
     <p
       *ngIf="
@@ -24,7 +24,14 @@
         match?.totals?.teamTwo?.finalProfit === 0
       "
     >
-      <span class="tag">Equalized</span>
+      <span class="tag mt-4"
+        ><span class="icon-text">
+          <span class="icon">
+            <fa-icon [icon]="faEquals"></fa-icon>
+          </span>
+          <span class="has-text-weight-bold">Equalized</span>
+        </span></span
+      >
     </p>
     <p
       *ngIf="
@@ -33,19 +40,17 @@
         match?.totals?.teamTwo?.finalProfit! > 0
       "
     >
-      <span class="tag is-success">Winning on both</span>
+      <span class="tag is-success mt-4"
+        ><span class="icon-text">
+          <span class="icon">
+            <fa-icon [icon]="faChartLine"></fa-icon>
+          </span>
+          <span class="has-text-weight-bold">Winning on both</span>
+        </span></span
+      >
     </p>
   </div>
-
-  <div class="block">
-    <a
-      [routerLink]="['/matches', match!.id]"
-      routerLinkActive="router-link-active"
-      >Bet</a
-    >
-    <button (click)="onDelete(match!.id)">Delete</button>
-  </div>
-
+  <hr />
   <div class="level is-mobile block" *ngIf="match?.winner_team">
     <div class="level-item has-text-centered">
       <div>
@@ -61,5 +66,30 @@
         </p>
       </div>
     </div>
+  </div>
+  <div class="block buttons is-centered">
+    <a
+      *ngIf="!match?.winner_team"
+      [routerLink]="['/matches', match!.id]"
+      routerLinkActive="router-link-active"
+      class="button is-info is-outlined is-rounded is-light"
+      ><span class="icon">
+        <fa-icon [icon]="faGavel"></fa-icon>
+      </span>
+      <span>Bet</span></a
+    >
+    <a
+      *ngIf="match?.winner_team"
+      [routerLink]="['/matches', match!.id]"
+      routerLinkActive="router-link-active"
+      class="button is-light is-rounded"
+      ><span class="icon">
+        <fa-icon [icon]="faReceipt"></fa-icon>
+      </span>
+      <span>History</span></a
+    >
+    <button (click)="onDelete(match!.id)" class="button is-danger is-rounded">
+      Delete
+    </button>
   </div>
 </article>

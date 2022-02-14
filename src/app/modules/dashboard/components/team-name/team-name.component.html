@@ -1,8 +1,8 @@
 <div class="is-size-4 is-flex is-justify-content-center is-align-items-center">
-  <p class="mr-4">{{ teamName }}</p>
+  <p>{{ teamName }}</p>
   <span
     *ngIf="winnerTeam === teamNumber; else teamProfit"
-    class="tag"
+    class="tag ml-4"
     [ngClass]="{
       'is-success': realProfit! > 0,
       'is-danger': realProfit! < 0
@@ -14,8 +14,18 @@
       <span class="has-text-weight-bold">Winner</span>
     </span></span
   ><ng-template #teamProfit
-    ><span *ngIf="winnerTeam === null && teamFinalProfit" class="is-size-7"
-      >R$ {{ teamFinalProfit.toFixed(2) }}</span
+    ><span
+      *ngIf="
+        winnerTeam === null &&
+        teamFinalProfit !== null &&
+        teamFinalProfit! !== 0
+      "
+      class="is-size-7 tag is-light ml-4"
+      [ngClass]="{
+        'is-success': teamFinalProfit! > 0,
+        'is-danger': teamFinalProfit! < 0
+      }"
+      >R$ {{ teamFinalProfit?.toFixed(2) }}</span
     ></ng-template
   >
 </div>
