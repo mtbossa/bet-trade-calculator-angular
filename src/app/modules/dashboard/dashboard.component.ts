@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatchesService } from 'src/app/core/services/matches.service';
 import { Match } from 'src/app/shared/models/match.model';
-import {faCaretDown, faCaretLeft} from '@fortawesome/free-solid-svg-icons';
+import { faCaretDown, faCaretLeft } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,6 +13,7 @@ import {faCaretDown, faCaretLeft} from '@fortawesome/free-solid-svg-icons';
 export class DashboardComponent implements OnInit {
   public matches: Match[] = [];
   public form!: FormGroup;
+  public filterForm!: FormGroup;
   public showForm: boolean = false;
 
   public faCaretDown = faCaretDown;
@@ -25,6 +26,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this._createForm();
+    this._createFilterForm();
     this.matchService.getAllMatches();
     this.matchService.matches$.subscribe((matches) => {
       this.matches = [...matches];
@@ -45,6 +47,13 @@ export class DashboardComponent implements OnInit {
       team_two: ['', [Validators.required, Validators.max(20)]],
     });
   }
+
+  private _createFilterForm() {
+    this.filterForm = this.formBuilder.group({
+      match_status: ['all'],
+    });
+  }
+
   public onSubmit() {
     if (this.form.invalid) {
       return;
@@ -58,5 +67,21 @@ export class DashboardComponent implements OnInit {
         console.log(errorResponse);
       },
     });
+  }
+
+  public onFilter() {
+    let params = {};
+    switch (this.filterForm.value.match_status) {
+      case 'finished':
+        params = { ...params, match_finished: true };
+        break;
+      case 'onGoing':
+        params = { ...params, match_finished: false };
+        break;
+      default:
+        params = { ...params };
+        break;
+    }
+    this.matchService.getAllMatches(params);
   }
 }

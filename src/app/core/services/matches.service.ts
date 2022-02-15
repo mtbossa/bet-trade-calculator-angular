@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, Observable, take } from 'rxjs';
 import { Bet } from 'src/app/shared/models/bet.model';
@@ -65,10 +65,16 @@ export class MatchesService {
       .pipe(take(1));
   }
 
-  public getAllMatches(withBets: boolean = true): void {
-    const queryWithBets = withBets ? 'with_bets=true' : '';
+  public getAllMatches(paramsOb: any = null, withBets = true): void {
+    paramsOb = {
+      ...paramsOb,
+      with_bets: withBets,      
+    };
+    const httpParams = new HttpParams({ fromObject: paramsOb });
     this.http
-      .get<Match[]>(`${environment.API_URL}/api/matches?${queryWithBets}`)
+      .get<Match[]>(`${environment.API_URL}/api/matches`, {
+        params: httpParams,
+      })
       .pipe(
         take(1),
         map((matches: Match[]) => {
