@@ -31,4 +31,8 @@ export class MatchCardComponent {
   onDelete(matchId: number) {
     this.deleted.emit(matchId);
   }
+
+  getMatchStatus() {
+    return this.match?.winner_team ? 'Finished' : 'On Going';
+  }
 }

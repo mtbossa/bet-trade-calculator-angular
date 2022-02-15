@@ -68,7 +68,7 @@ export class MatchesService {
   public getAllMatches(paramsOb: any = null, withBets = true): void {
     paramsOb = {
       ...paramsOb,
-      with_bets: withBets,      
+      with_bets: withBets,
     };
     const httpParams = new HttpParams({ fromObject: paramsOb });
     this.http

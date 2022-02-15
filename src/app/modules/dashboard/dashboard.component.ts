@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatchesService } from 'src/app/core/services/matches.service';
 import { Match } from 'src/app/shared/models/match.model';
 import { faCaretDown, faCaretLeft } from '@fortawesome/free-solid-svg-icons';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,7 +16,9 @@ export class DashboardComponent implements OnInit {
   public form!: FormGroup;
   public filterForm!: FormGroup;
   public showForm: boolean = false;
+  public showFilterForm: boolean = false;
 
+  // icons
   public faCaretDown = faCaretDown;
   public faCaretLeft = faCaretLeft;
 
@@ -51,6 +54,8 @@ export class DashboardComponent implements OnInit {
   private _createFilterForm() {
     this.filterForm = this.formBuilder.group({
       match_status: ['all'],
+      start_date: [formatDate('2022-02-15', 'yyyy-MM-dd', 'en')],
+      end_date: [formatDate('2022-02-15', 'yyyy-MM-dd', 'en')],
     });
   }
 
@@ -70,18 +75,23 @@ export class DashboardComponent implements OnInit {
   }
 
   public onFilter() {
-    let params = {};
+    const params = {
+      ...this._selectMatchStatus(),
+      start_date: this.filterForm.value.start_date,
+      end_date: this.filterForm.value.end_date,
+    };
+    console.log(this._selectMatchStatus);
+    this.matchService.getAllMatches(params);
+  }
+
+  private _selectMatchStatus() {
     switch (this.filterForm.value.match_status) {
       case 'finished':
-        params = { ...params, match_finished: true };
-        break;
+        return { match_finished: true };
       case 'onGoing':
-        params = { ...params, match_finished: false };
-        break;
-      default:
-        params = { ...params };
-        break;
+        return { match_finished: false };
     }
-    this.matchService.getAllMatches(params);
+
+    return {};
   }
 }

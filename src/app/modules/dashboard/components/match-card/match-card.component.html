@@ -51,10 +51,25 @@
     </p>
   </div>
   <hr />
-  <div class="level is-mobile block" *ngIf="match?.winner_team">
+  <nav class="level">
     <div class="level-item has-text-centered">
       <div>
-        <p class="heading has-text-info-dark">Profit</p>
+        <p class="heading">Status</p>
+        <p class="title">
+          <span
+            class="tag is-medium"
+            [ngClass]="{
+              'is-dark': getMatchStatus() === 'On Going',
+              'is-info': getMatchStatus() === 'Finished'
+            }"
+            >{{ getMatchStatus() }}</span
+          >
+        </p>
+      </div>
+    </div>
+    <div *ngIf="match?.winner_team" class="level-item has-text-centered">
+      <div>
+        <p class="heading">Profit</p>
         <p
           class="title"
           [ngClass]="{
@@ -66,7 +81,8 @@
         </p>
       </div>
     </div>
-  </div>
+  </nav>
+
   <div class="block buttons is-centered">
     <a
       *ngIf="!match?.winner_team"
