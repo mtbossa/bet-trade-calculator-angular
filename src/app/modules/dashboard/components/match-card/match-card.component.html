@@ -67,9 +67,19 @@
         </p>
       </div>
     </div>
+    <div class="level-item has-text-centered">
+      <div>
+        <p class="heading">Created At</p>
+        <p class="title">
+          <span class="tag is-medium">{{
+            match?.created_at | date: "medium"
+          }}</span>
+        </p>
+      </div>
+    </div>
     <div *ngIf="match?.winner_team" class="level-item has-text-centered">
       <div>
-        <p class="heading">Profit</p>
+        <p class="heading">Final Profit</p>
         <p
           class="title"
           [ngClass]="{
